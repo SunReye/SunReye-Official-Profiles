@@ -11,58 +11,58 @@
     },
     {
       "id": "deye-sg01hp3-10k",
-      "name": "Deye SUN-10K-SG01HP3",
+      "name": "SUN-10K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-10k.json"
     },
     {
       "id": "deye-sg01hp3-12k",
-      "name": "Deye SUN-12K-SG01HP3",
+      "name": "SUN-12K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-12k.json"
     },
     {
       "id": "deye-sg01hp3-15k",
-      "name": "Deye SUN-15K-SG01HP3",
+      "name": "SUN-15K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-15k.json"
     },
     {
       "id": "deye-sg01hp3-20k",
-      "name": "Deye SUN-20K-SG01HP3",
+      "name": "SUN-20K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-20k.json"
     },
     {
       "id": "deye-sg01hp3-25k",
-      "name": "Deye SUN-25K-SG01HP3",
+      "name": "SUN-25K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-25k.json"
     },
     {
       "id": "deye-sg01hp3-5k",
-      "name": "Deye SUN-5K-SG01HP3",
+      "name": "SUN-5K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-5k.json"
     },
     {
       "id": "deye-sg01hp3-6k",
-      "name": "Deye SUN-6K-SG01HP3",
+      "name": "SUN-6K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-6k.json"
     },
     {
       "id": "deye-sg01hp3-8k",
-      "name": "Deye SUN-8K-SG01HP3",
+      "name": "SUN-8K-SG01HP3",
       "manufacturer": "Deye",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-8k.json"
     }
   ]

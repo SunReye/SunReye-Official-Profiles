@@ -5,14 +5,14 @@
     "": {
       "name": "SunReye-Official-Profiles",
       "devDependencies": {
-        "@sunreye/profile-sdk": "^1.3.0",
+        "@sunreye/profile-sdk": "^1.4.0",
         "@types/bun": "latest",
-        "typescript": "^5",
+        "typescript": "^5.9.3",
       },
     },
   },
   "packages": {
-    "@sunreye/profile-sdk": ["@sunreye/profile-sdk@1.4.0", "", { "dependencies": { "zod": "^4.1.13" }, "bin": { "profile": "dist/cli.mjs" } }, "sha512-bI4ibKwMA3X60eCsPToQtcZaLwSX7pXIQt+9Ivd0E2ebt3Xxzqdx+r5BYq2swK4y/Q/yg69fhGhkBixY4Uyuow=="],
+    "@sunreye/profile-sdk": ["@sunreye/profile-sdk@1.5.0", "", { "dependencies": { "zod": "^4.1.13" }, "bin": { "profile": "dist/cli.mjs" } }, "sha512-q2un583HJEwB/pe1g2bwVfbblDMqo8zvz5TQKAZjjeAknOIDGD0lqFY1xJk5S/WQZCl1qF60azWdPYibR72FDw=="],
 
     "@types/bun": ["@types/bun@1.3.14", "", { "dependencies": { "bun-types": "1.3.14" } }, "sha512-h1hFqFVcvAvD9j9K7ZW7vd82aSA+rTdznZa+5bwvCwqSB1jmmfLcbIWhOLx1/+boy/xmjgCs/OMUL8hRJSmnPw=="],
 

@@ -723,7 +723,7 @@ export const deyeSG01HP3 = defineFamily({
   // model re-derives the correct total from its surviving strings automatically.
   models: {
     "deye-sg01hp3-5k": {
-      name: "Deye SUN-5K-SG01HP3",
+      name: "SUN-5K-SG01HP3",
       metrics: {
         "dc.pv3.*": null,
         "dc.pv4.*": null,
@@ -733,7 +733,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-6k": {
-      name: "Deye SUN-6K-SG01HP3",
+      name: "SUN-6K-SG01HP3",
       metrics: {
         "dc.pv3.*": null,
         "dc.pv4.*": null,
@@ -743,7 +743,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-8k": {
-      name: "Deye SUN-8K-SG01HP3",
+      name: "SUN-8K-SG01HP3",
       metrics: {
         "dc.pv3.*": null,
         "dc.pv4.*": null,
@@ -753,7 +753,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-10k": {
-      name: "Deye SUN-10K-SG01HP3",
+      name: "SUN-10K-SG01HP3",
       metrics: {
         "dc.pv3.*": null,
         "dc.pv4.*": null,
@@ -763,7 +763,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-12k": {
-      name: "Deye SUN-12K-SG01HP3",
+      name: "SUN-12K-SG01HP3",
       metrics: {
         "dc.pv4.*": null,
         "settings.battery.maximum_charge_current": { max: 37 },
@@ -772,7 +772,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-15k": {
-      name: "Deye SUN-15K-SG01HP3",
+      name: "SUN-15K-SG01HP3",
       metrics: {
         "dc.pv4.*": null,
         "settings.battery.maximum_charge_current": { max: 37 },
@@ -781,7 +781,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-20k": {
-      name: "Deye SUN-20K-SG01HP3",
+      name: "SUN-20K-SG01HP3",
       metrics: {
         "settings.battery.maximum_charge_current": { max: 50 },
         "settings.battery.maximum_discharge_current": { max: 50 },
@@ -790,7 +790,7 @@ export const deyeSG01HP3 = defineFamily({
       },
     },
     "deye-sg01hp3-25k": {
-      name: "Deye SUN-25K-SG01HP3",
+      name: "SUN-25K-SG01HP3",
       metrics: {
         "settings.battery.maximum_charge_current": { max: 50 },
         "settings.battery.maximum_discharge_current": { max: 50 },
