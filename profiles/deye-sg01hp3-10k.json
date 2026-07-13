@@ -1,0 +1,1041 @@
+{
+  "schemaVersion": 1,
+  "id": "deye-sg01hp3-10k",
+  "name": "Deye SUN-10K-SG01HP3",
+  "manufacturer": "Deye",
+  "version": "0.1.0",
+  "metrics": [
+    {
+      "key": "dc.pv1.power",
+      "topic": "dc/pv1/power",
+      "label": "PV1 Power",
+      "unit": "W",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        672
+      ],
+      "scale": 10,
+      "access": "r",
+      "role": "pv.string.power",
+      "index": 1
+    },
+    {
+      "key": "dc.pv2.power",
+      "topic": "dc/pv2/power",
+      "label": "PV2 Power",
+      "unit": "W",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        673
+      ],
+      "scale": 10,
+      "access": "r",
+      "role": "pv.string.power",
+      "index": 2
+    },
+    {
+      "key": "dc.pv1.voltage",
+      "topic": "dc/pv1/voltage",
+      "label": "PV1 Voltage",
+      "unit": "V",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        676
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.voltage",
+      "index": 1
+    },
+    {
+      "key": "dc.pv2.voltage",
+      "topic": "dc/pv2/voltage",
+      "label": "PV2 Voltage",
+      "unit": "V",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        678
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.voltage",
+      "index": 2
+    },
+    {
+      "key": "dc.pv1.current",
+      "topic": "dc/pv1/current",
+      "label": "PV1 Current",
+      "unit": "A",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        677
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.current",
+      "index": 1
+    },
+    {
+      "key": "dc.pv2.current",
+      "topic": "dc/pv2/current",
+      "label": "PV2 Current",
+      "unit": "A",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        679
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.current",
+      "index": 2
+    },
+    {
+      "key": "dc.total_power",
+      "topic": "dc/total_power",
+      "label": "PV Total Power",
+      "unit": "W",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "role": "pv.total.power",
+      "computeExpr": {
+        "sum": [
+          "dc.pv1.power",
+          "dc.pv2.power"
+        ]
+      }
+    },
+    {
+      "key": "day_energy",
+      "topic": "day_energy",
+      "label": "Daily Production",
+      "unit": "kWh",
+      "group": "solar",
+      "type": "U_WORD",
+      "addresses": [
+        529
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "production.today"
+    },
+    {
+      "key": "total_energy",
+      "topic": "total_energy",
+      "label": "Total Production",
+      "unit": "kWh",
+      "group": "solar",
+      "type": "U_DWORD",
+      "addresses": [
+        534,
+        535
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "production.total"
+    },
+    {
+      "key": "battery.soc",
+      "topic": "battery/soc",
+      "label": "Battery SoC",
+      "unit": "%",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        588
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "battery.soc"
+    },
+    {
+      "key": "battery.power",
+      "topic": "battery/power",
+      "label": "Battery Power",
+      "unit": "W",
+      "group": "battery",
+      "type": "S_WORD",
+      "addresses": [
+        590
+      ],
+      "scale": 10,
+      "access": "r",
+      "role": "battery.power",
+      "flow": {
+        "positive": "Discharging",
+        "negative": "Charging"
+      }
+    },
+    {
+      "key": "battery.voltage",
+      "topic": "battery/voltage",
+      "label": "Battery Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        587
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "battery.voltage"
+    },
+    {
+      "key": "battery.current",
+      "topic": "battery/current",
+      "label": "Battery Current",
+      "unit": "A",
+      "group": "battery",
+      "type": "S_WORD",
+      "addresses": [
+        591
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "role": "battery.current",
+      "flow": {
+        "positive": "Discharging",
+        "negative": "Charging"
+      }
+    },
+    {
+      "key": "battery.temperature",
+      "topic": "battery/temperature",
+      "label": "Battery Temperature",
+      "unit": "°C",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        586
+      ],
+      "scale": 0.1,
+      "offset": -100,
+      "access": "r",
+      "role": "battery.temperature"
+    },
+    {
+      "key": "battery.daily_charge",
+      "topic": "battery/daily_charge",
+      "label": "Daily Battery Charge",
+      "unit": "kWh",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        514
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "battery.energy.charged.today"
+    },
+    {
+      "key": "battery.daily_discharge",
+      "topic": "battery/daily_discharge",
+      "label": "Daily Battery Discharge",
+      "unit": "kWh",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        515
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "battery.energy.discharged.today"
+    },
+    {
+      "key": "battery.total_charge",
+      "topic": "battery/total_charge",
+      "label": "Total Battery Charge",
+      "unit": "kWh",
+      "group": "battery",
+      "type": "U_DWORD",
+      "addresses": [
+        516,
+        517
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "battery.energy.charged.total"
+    },
+    {
+      "key": "battery.total_discharge",
+      "topic": "battery/total_discharge",
+      "label": "Total Battery Discharge",
+      "unit": "kWh",
+      "group": "battery",
+      "type": "U_DWORD",
+      "addresses": [
+        518,
+        519
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "battery.energy.discharged.total"
+    },
+    {
+      "key": "ac.total_power",
+      "topic": "ac/total_power",
+      "label": "Total Grid Power",
+      "unit": "W",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        625
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "grid.power",
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l1.voltage",
+      "topic": "ac/l1/voltage",
+      "label": "Grid Voltage L1",
+      "unit": "V",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [
+        598
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.phase.voltage",
+      "index": 1
+    },
+    {
+      "key": "ac.l2.voltage",
+      "topic": "ac/l2/voltage",
+      "label": "Grid Voltage L2",
+      "unit": "V",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [
+        599
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.phase.voltage",
+      "index": 2
+    },
+    {
+      "key": "ac.l3.voltage",
+      "topic": "ac/l3/voltage",
+      "label": "Grid Voltage L3",
+      "unit": "V",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [
+        600
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.phase.voltage",
+      "index": 3
+    },
+    {
+      "key": "ac.l1.current",
+      "topic": "ac/l1/current",
+      "label": "Grid Current L1",
+      "unit": "A",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        630
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "role": "grid.phase.current",
+      "index": 1,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l2.current",
+      "topic": "ac/l2/current",
+      "label": "Grid Current L2",
+      "unit": "A",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        631
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "role": "grid.phase.current",
+      "index": 2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l3.current",
+      "topic": "ac/l3/current",
+      "label": "Grid Current L3",
+      "unit": "A",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        632
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "role": "grid.phase.current",
+      "index": 3,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l1.power",
+      "topic": "ac/l1/power",
+      "label": "Grid Power L1",
+      "unit": "W",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        633
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "grid.phase.power",
+      "index": 1,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l2.power",
+      "topic": "ac/l2/power",
+      "label": "Grid Power L2",
+      "unit": "W",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        634
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "grid.phase.power",
+      "index": 2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.l3.power",
+      "topic": "ac/l3/power",
+      "label": "Grid Power L3",
+      "unit": "W",
+      "group": "grid",
+      "type": "S_WORD",
+      "addresses": [
+        635
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "grid.phase.power",
+      "index": 3,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      }
+    },
+    {
+      "key": "ac.daily_energy_bought",
+      "topic": "ac/daily_energy_bought",
+      "label": "Daily Energy Bought",
+      "unit": "kWh",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [
+        520
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.energy.imported.today"
+    },
+    {
+      "key": "ac.total_energy_bought",
+      "topic": "ac/total_energy_bought",
+      "label": "Total Energy Bought",
+      "unit": "kWh",
+      "group": "grid",
+      "type": "U_DWORD",
+      "addresses": [
+        522,
+        523
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.energy.imported.total"
+    },
+    {
+      "key": "ac.daily_energy_sold",
+      "topic": "ac/daily_energy_sold",
+      "label": "Daily Energy Sold",
+      "unit": "kWh",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [
+        521
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.energy.exported.today"
+    },
+    {
+      "key": "ac.total_energy_sold",
+      "topic": "ac/total_energy_sold",
+      "label": "Total Energy Sold",
+      "unit": "kWh",
+      "group": "grid",
+      "type": "U_DWORD",
+      "addresses": [
+        524,
+        525
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "grid.energy.exported.total"
+    },
+    {
+      "key": "ac.ups.total_power",
+      "topic": "ac/ups/total_power",
+      "label": "Total Load Power",
+      "unit": "W",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        653
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.power"
+    },
+    {
+      "key": "ac.ups.l1.power",
+      "topic": "ac/ups/l1/power",
+      "label": "Load Power L1",
+      "unit": "W",
+      "group": "load",
+      "type": "S_WORD",
+      "addresses": [
+        650
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 1
+    },
+    {
+      "key": "ac.ups.l2.power",
+      "topic": "ac/ups/l2/power",
+      "label": "Load Power L2",
+      "unit": "W",
+      "group": "load",
+      "type": "S_WORD",
+      "addresses": [
+        651
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 2
+    },
+    {
+      "key": "ac.ups.l3.power",
+      "topic": "ac/ups/l3/power",
+      "label": "Load Power L3",
+      "unit": "W",
+      "group": "load",
+      "type": "S_WORD",
+      "addresses": [
+        652
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 3
+    },
+    {
+      "key": "ac.ups.l1.voltage",
+      "topic": "ac/ups/l1/voltage",
+      "label": "Load Voltage L1",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        644
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 1
+    },
+    {
+      "key": "ac.ups.l2.voltage",
+      "topic": "ac/ups/l2/voltage",
+      "label": "Load Voltage L2",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        645
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 2
+    },
+    {
+      "key": "ac.ups.l3.voltage",
+      "topic": "ac/ups/l3/voltage",
+      "label": "Load Voltage L3",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        646
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 3
+    },
+    {
+      "key": "ac.ups.daily_energy",
+      "topic": "ac/ups/daily_energy",
+      "label": "Daily Load Consumption",
+      "unit": "kWh",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        526
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.energy.today"
+    },
+    {
+      "key": "ac.ups.total_energy",
+      "topic": "ac/ups/total_energy",
+      "label": "Total Load Consumption",
+      "unit": "kWh",
+      "group": "load",
+      "type": "U_DWORD",
+      "addresses": [
+        527,
+        528
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.energy.total"
+    },
+    {
+      "key": "ac.generator.total_power",
+      "topic": "ac/generator/total_power",
+      "label": "Total Generator Power",
+      "unit": "W",
+      "group": "generator",
+      "type": "S_WORD",
+      "addresses": [
+        667
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "generator.power"
+    },
+    {
+      "key": "ac.generator.l1.power",
+      "topic": "ac/generator/l1/power",
+      "label": "Generator Power L1",
+      "unit": "W",
+      "group": "generator",
+      "type": "S_WORD",
+      "addresses": [
+        664
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "generator.phase.power",
+      "index": 1
+    },
+    {
+      "key": "ac.generator.l2.power",
+      "topic": "ac/generator/l2/power",
+      "label": "Generator Power L2",
+      "unit": "W",
+      "group": "generator",
+      "type": "S_WORD",
+      "addresses": [
+        665
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "generator.phase.power",
+      "index": 2
+    },
+    {
+      "key": "ac.generator.l3.power",
+      "topic": "ac/generator/l3/power",
+      "label": "Generator Power L3",
+      "unit": "W",
+      "group": "generator",
+      "type": "S_WORD",
+      "addresses": [
+        666
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "generator.phase.power",
+      "index": 3
+    },
+    {
+      "key": "ac.generator.l1.voltage",
+      "topic": "ac/generator/l1/voltage",
+      "label": "Generator Voltage L1",
+      "unit": "V",
+      "group": "generator",
+      "type": "U_WORD",
+      "addresses": [
+        661
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "generator.phase.voltage",
+      "index": 1
+    },
+    {
+      "key": "ac.generator.l2.voltage",
+      "topic": "ac/generator/l2/voltage",
+      "label": "Generator Voltage L2",
+      "unit": "V",
+      "group": "generator",
+      "type": "U_WORD",
+      "addresses": [
+        662
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "generator.phase.voltage",
+      "index": 2
+    },
+    {
+      "key": "ac.generator.l3.voltage",
+      "topic": "ac/generator/l3/voltage",
+      "label": "Generator Voltage L3",
+      "unit": "V",
+      "group": "generator",
+      "type": "U_WORD",
+      "addresses": [
+        663
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "generator.phase.voltage",
+      "index": 3
+    },
+    {
+      "key": "ac.generator.daily_energy",
+      "topic": "ac/generator/daily_energy",
+      "label": "Daily Generator Production",
+      "unit": "kWh",
+      "group": "generator",
+      "type": "U_WORD",
+      "addresses": [
+        536
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "generator.energy.today"
+    },
+    {
+      "key": "inverter.status",
+      "topic": "inverter/status",
+      "label": "Running Status",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        500
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "inverter.status",
+      "enumLabels": {
+        "0": "Standby",
+        "1": "Self-check",
+        "2": "Normal",
+        "3": "Alarm",
+        "4": "Fault"
+      }
+    },
+    {
+      "key": "radiator_temp",
+      "topic": "radiator_temp",
+      "label": "DC (Radiator) Temperature",
+      "unit": "°C",
+      "group": "inverter",
+      "type": "S_WORD",
+      "addresses": [
+        540
+      ],
+      "scale": 0.1,
+      "offset": -100,
+      "access": "r",
+      "role": "inverter.temperature.dc"
+    },
+    {
+      "key": "ac.temperature",
+      "topic": "ac/temperature",
+      "label": "AC (Inverter) Temperature",
+      "unit": "°C",
+      "group": "inverter",
+      "type": "S_WORD",
+      "addresses": [
+        541
+      ],
+      "scale": 0.1,
+      "offset": -100,
+      "access": "r",
+      "role": "inverter.temperature.ac"
+    },
+    {
+      "key": "settings.battery.maximum_charge_current",
+      "topic": "settings/battery/maximum_charge_current",
+      "label": "Max battery charge current",
+      "unit": "A",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        108
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.battery.max_charge_current",
+      "range": {
+        "min": 0,
+        "max": 37
+      }
+    },
+    {
+      "key": "settings.battery.maximum_discharge_current",
+      "topic": "settings/battery/maximum_discharge_current",
+      "label": "Max battery discharge current",
+      "unit": "A",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        109
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.battery.max_discharge_current",
+      "range": {
+        "min": 0,
+        "max": 37
+      }
+    },
+    {
+      "key": "settings.battery.maximum_grid_charge_current",
+      "topic": "settings/battery/maximum_grid_charge_current",
+      "label": "Max grid charge current",
+      "unit": "A",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        128
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.battery.max_grid_charge_current",
+      "range": {
+        "min": 0,
+        "max": 37
+      }
+    },
+    {
+      "key": "settings.battery.grid_charge",
+      "topic": "settings/battery/grid_charge",
+      "label": "Grid charge",
+      "unit": null,
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        130
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.battery.grid_charge",
+      "enumLabels": {
+        "0": "Disabled",
+        "1": "Enabled"
+      }
+    },
+    {
+      "key": "settings.workmode",
+      "topic": "settings/workmode",
+      "label": "Work mode",
+      "unit": null,
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        142
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.work_mode",
+      "enumLabels": {
+        "0": "Selling first",
+        "1": "Zero export to load",
+        "2": "Zero export to CT"
+      }
+    },
+    {
+      "key": "settings.solar_sell_max_power",
+      "topic": "settings/solar_sell_max_power",
+      "label": "Max solar sell power",
+      "unit": "W",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        143
+      ],
+      "scale": 10,
+      "access": "rw",
+      "role": "setting.solar_sell.max_power",
+      "range": {
+        "min": 0,
+        "max": 10000
+      }
+    },
+    {
+      "key": "settings.solar_sell",
+      "topic": "settings/solar_sell",
+      "label": "Solar sell",
+      "unit": null,
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        145
+      ],
+      "scale": 1,
+      "access": "rw",
+      "role": "setting.solar_sell.enabled",
+      "enumLabels": {
+        "0": "Disabled",
+        "1": "Enabled"
+      }
+    },
+    {
+      "key": "battery.mode",
+      "topic": "battery/mode",
+      "label": "Battery Mode",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        98
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "battery.mode",
+      "kind": "status",
+      "enumLabels": {
+        "0": "Lead-acid (voltage)",
+        "1": "Lithium (SOC)"
+      }
+    },
+    {
+      "key": "inverter.power",
+      "topic": "inverter/power",
+      "label": "Inverter Self-Consumption",
+      "unit": "W",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "combine": {
+          "add": [
+            "dc.total_power",
+            "battery.power",
+            "ac.total_power"
+          ],
+          "sub": [
+            "ac.ups.total_power"
+          ]
+        }
+      },
+      "role": "inverter.power"
+    },
+    {
+      "key": "inverter.efficiency",
+      "topic": "inverter/efficiency",
+      "label": "Inverter Efficiency",
+      "unit": "%",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "ratio": {
+          "num": [
+            "ac.ups.total_power"
+          ],
+          "den": [
+            "dc.total_power",
+            "battery.power",
+            "ac.total_power"
+          ],
+          "scale": 100
+        }
+      },
+      "role": "inverter.efficiency",
+      "kind": "measurement",
+      "range": {
+        "min": 0,
+        "max": 100
+      }
+    },
+    {
+      "key": "settings.battery.lock",
+      "topic": "settings/battery/lock",
+      "label": "Battery discharge lock",
+      "unit": null,
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "rw",
+      "controlExpr": {
+        "snapshotToggle": {
+          "target": "settings.battery.maximum_discharge_current",
+          "lockedValue": 0
+        }
+      },
+      "enumLabels": {
+        "0": "Unlocked",
+        "1": "Locked"
+      }
+    }
+  ]
+}

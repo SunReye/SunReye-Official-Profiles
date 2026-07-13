@@ -1,0 +1,14 @@
+{
+  "name": "SunReye-Official-Profiles",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "profile build ./src/profiles.ts --out . --name \"SunReye-Official-Profiles\" --maintainer \"SunReye\""
+  },
+  "devDependencies": {
+    "@sunreye/profile-sdk": "^1.4.0",
+    "@types/bun": "latest",
+    "typescript": "^5.9.3"
+  }
+}
