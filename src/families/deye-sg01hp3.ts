@@ -699,7 +699,7 @@ const controls: MetricDataDef[] = [
 
 export const deyeSG01HP3 = defineFamily({
   id: "deye-sg01hp3",
-  name: "Deye SG01HP3",
+  name: "SG01HP3",
   manufacturer: "Deye",
   version: "0.1.0",
   metrics: [...metrics, ...controls],
