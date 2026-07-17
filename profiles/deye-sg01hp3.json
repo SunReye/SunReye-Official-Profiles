@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "id": "deye-sg01hp3",
-  "name": "Deye SG01HP3",
+  "name": "SG01HP3",
   "manufacturer": "Deye",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "metrics": [
     {
       "key": "dc.pv1.power",
