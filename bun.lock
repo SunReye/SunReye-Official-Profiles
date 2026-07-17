@@ -5,7 +5,7 @@
     "": {
       "name": "SunReye-Official-Profiles",
       "devDependencies": {
-        "@sunreye/profile-sdk": "^1.4.0",
+        "@sunreye/profile-sdk": "^1.5.0",
         "@types/bun": "latest",
         "typescript": "^5.9.3",
       },

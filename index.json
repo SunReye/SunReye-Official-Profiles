@@ -64,6 +64,48 @@
       "manufacturer": "Deye",
       "version": "0.1.1",
       "path": "profiles/deye-sg01hp3-8k.json"
+    },
+    {
+      "id": "deye-sg05lp3",
+      "name": "SG05LP3",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sg05lp3.json"
+    },
+    {
+      "id": "deye-sun14k-sg05lp3",
+      "name": "SUN-14K-SG05LP3-EU-SM2",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sun14k-sg05lp3.json"
+    },
+    {
+      "id": "deye-sun15k-sg05lp3",
+      "name": "SUN-15K-SG05LP3-EU-SM2",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sun15k-sg05lp3.json"
+    },
+    {
+      "id": "deye-sun16k-sg05lp3",
+      "name": "SUN-16K-SG05LP3-EU-SM2",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sun16k-sg05lp3.json"
+    },
+    {
+      "id": "deye-sun18k-sg05lp3",
+      "name": "SUN-18K-SG05LP3-EU-SM2",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sun18k-sg05lp3.json"
+    },
+    {
+      "id": "deye-sun20k-sg05lp3",
+      "name": "SUN-20K-SG05LP3-EU-SM2",
+      "manufacturer": "Deye",
+      "version": "1.0.0",
+      "path": "profiles/deye-sun20k-sg05lp3.json"
     }
   ]
 }
