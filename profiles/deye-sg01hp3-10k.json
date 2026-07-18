@@ -3,7 +3,7 @@
   "id": "deye-sg01hp3-10k",
   "name": "SUN-10K-SG01HP3",
   "manufacturer": "Deye",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "metrics": [
     {
       "key": "dc.pv1.power",
@@ -987,6 +987,74 @@
       "role": "inverter.power"
     },
     {
+      "key": "grid.import_power",
+      "topic": "grid/import_power",
+      "label": "Grid Import Power",
+      "unit": "W",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "clamp": {
+          "key": "ac.total_power",
+          "min": 0
+        }
+      }
+    },
+    {
+      "key": "grid.export_power",
+      "topic": "grid/export_power",
+      "label": "Grid Export Power",
+      "unit": "W",
+      "group": "grid",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "diff": [
+          "grid.import_power",
+          "ac.total_power"
+        ]
+      }
+    },
+    {
+      "key": "battery.discharge_power",
+      "topic": "battery/discharge_power",
+      "label": "Battery Discharge Power",
+      "unit": "W",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "clamp": {
+          "key": "battery.power",
+          "min": 0
+        }
+      }
+    },
+    {
+      "key": "battery.charge_power",
+      "topic": "battery/charge_power",
+      "label": "Battery Charge Power",
+      "unit": "W",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "diff": [
+          "battery.discharge_power",
+          "battery.power"
+        ]
+      }
+    },
+    {
       "key": "inverter.efficiency",
       "topic": "inverter/efficiency",
       "label": "Inverter Efficiency",
@@ -999,12 +1067,14 @@
       "computeExpr": {
         "ratio": {
           "num": [
-            "ac.ups.total_power"
+            "ac.ups.total_power",
+            "battery.charge_power",
+            "grid.export_power"
           ],
           "den": [
             "dc.total_power",
-            "battery.power",
-            "ac.total_power"
+            "battery.discharge_power",
+            "grid.import_power"
           ],
           "scale": 100
         }

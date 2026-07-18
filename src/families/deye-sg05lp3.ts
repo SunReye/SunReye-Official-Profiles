@@ -333,9 +333,42 @@ const inverter = [
       },
     },
   }),
-  // Share of the power drawn into the inverter node that actually reaches the
-  // load: load ÷ (dc + battery + grid), as a percentage. A zero denominator
-  // (night / idle) reads as 0 rather than dividing by zero.
+  // Directional power splits — the signed battery/grid registers broken into
+  // positive-only components so the efficiency ratio (below) can sum true
+  // inflows and outflows instead of a signed mix. `clamp {min:0}` keeps the
+  // positive part; the opposite direction is `that − signed` (a diff), e.g.
+  // charge = discharge − battery.power = max(0, −battery.power).
+  metric("grid/import_power", {
+    label: "Grid Import Power",
+    unit: "W",
+    group: "grid",
+    computeExpr: { clamp: { key: "ac.total_power", min: 0 } },
+  }),
+  metric("grid/export_power", {
+    label: "Grid Export Power",
+    unit: "W",
+    group: "grid",
+    computeExpr: { diff: ["grid.import_power", "ac.total_power"] },
+  }),
+  metric("battery/discharge_power", {
+    label: "Battery Discharge Power",
+    unit: "W",
+    group: "battery",
+    computeExpr: { clamp: { key: "battery.power", min: 0 } },
+  }),
+  metric("battery/charge_power", {
+    label: "Battery Charge Power",
+    unit: "W",
+    group: "battery",
+    computeExpr: { diff: ["battery.discharge_power", "battery.power"] },
+  }),
+  // Inverter conversion efficiency = useful power delivered ÷ power drawn in,
+  // both as positive-only sums so charging / exporting count as OUTPUT rather
+  // than shrinking the input (the bug in the old signed denominator):
+  //   out = load + battery charge + grid export
+  //   in  = PV   + battery discharge + grid import
+  // A zero denominator (night / idle) reads as 0 rather than dividing by zero;
+  // conversion losses keep the ratio ≤ 100 %.
   metric("inverter/efficiency", {
     label: "Inverter Efficiency",
     unit: "%",
@@ -345,8 +378,8 @@ const inverter = [
     range: { min: 0, max: 100 },
     computeExpr: {
       ratio: {
-        num: ["ac.ups.total_power"],
-        den: ["dc.total_power", "battery.power", "ac.total_power"],
+        num: ["ac.ups.total_power", "battery.charge_power", "grid.export_power"],
+        den: ["dc.total_power", "battery.discharge_power", "grid.import_power"],
         scale: 100,
       },
     },
