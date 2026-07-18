@@ -7,7 +7,7 @@
     "build": "profile build ./src/profiles.ts --out . --name \"SunReye-Official-Profiles\" --maintainer \"SunReye\""
   },
   "devDependencies": {
-    "@sunreye/profile-sdk": "^1.5.0",
+    "@sunreye/profile-sdk": "^2.0.0",
     "@types/bun": "latest",
     "typescript": "^5.9.3"
   }
