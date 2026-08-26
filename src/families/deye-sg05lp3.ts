@@ -12,6 +12,42 @@ import type { MetricDataDef, ModelOverrides } from "@sunreye/profile-sdk";
  * writability) is checked at compile time.
  */
 
+/**
+ * Storage classes and deadbands (SunReye's storage-wear work).
+ *
+ * Two fields decide how much of this map reaches disk, and both are stated here
+ * rather than derived downstream, because only the vendor map says what a
+ * register is worth keeping:
+ *
+ * - `storage` - `config` (the default for every writable register) keeps a
+ *   change-log instead of a timeseries row per poll; the configuration registers
+ *   in this map were a third of every row the app wrote. The four current/power
+ *   limits the automation engine writes are marked `series` explicitly: their
+ *   history charts against battery power and is worth keeping. `settings/system_time`
+ *   is `none` - a packed RAW register is never part of the numeric sample, so
+ *   there is no series to keep.
+ * - `deadband` - the smallest change worth storing, in the register's own unit,
+ *   compared against the last value actually *stored* (so the stored series is
+ *   never wrong by more than the threshold). Absent means every change is kept,
+ *   which is what counters and enums get: a threshold makes a counter lag and can
+ *   swallow a state transition.
+ *
+ * The values are conservative and uniform per unit, chosen to sit above the
+ * register's own quantisation step and well inside instrument noise:
+ *
+ * | Unit | Deadband | Reasoning |
+ * | --- | --- | --- |
+ * | W | 20 | ~0.2 % of a 10 kW inverter, above the coarsest power step (10 W) |
+ * | V (AC/PV) | 1 | ~0.4 % of 230 V, 10x the 0.1 V register step |
+ * | V (battery) | 0.1 | ~0.2 % of a 48 V pack, 10x the 10 mV step |
+ * | A | 0.2 | 20x the 10 mA step; 1 A-resolution registers get none |
+ * | °C | 0.5 | 5x the register step, below any real thermal excursion |
+ * | % (efficiency) | 1 | a computed ratio; one point is inside its own noise |
+ *
+ * Raise them per model if a site is noisier; each one can only cost fidelity
+ * bounded by the number itself.
+ */
+
 const CHARGE_FLOW = { positive: "Discharging", negative: "Charging" } as const;
 const GRID_FLOW = { positive: "Importing", negative: "Exporting" } as const;
 
@@ -40,6 +76,7 @@ const inverter = [
     addr: 672,
     role: "pv.string.power",
     index: 1,
+    deadband: 20,
   }),
   metric("dc/pv2/power", {
     label: "PV2 Power",
@@ -48,6 +85,7 @@ const inverter = [
     addr: 673,
     role: "pv.string.power",
     index: 2,
+    deadband: 20,
   }),
   metric("dc/pv1/voltage", {
     label: "PV1 Voltage",
@@ -57,6 +95,7 @@ const inverter = [
     scale: 0.1,
     role: "pv.string.voltage",
     index: 1,
+    deadband: 1,
   }),
   metric("dc/pv2/voltage", {
     label: "PV2 Voltage",
@@ -66,6 +105,7 @@ const inverter = [
     scale: 0.1,
     role: "pv.string.voltage",
     index: 2,
+    deadband: 1,
   }),
   metric("dc/pv1/current", {
     label: "PV1 Current",
@@ -75,6 +115,7 @@ const inverter = [
     scale: 0.1,
     role: "pv.string.current",
     index: 1,
+    deadband: 0.2,
   }),
   metric("dc/pv2/current", {
     label: "PV2 Current",
@@ -84,6 +125,7 @@ const inverter = [
     scale: 0.1,
     role: "pv.string.current",
     index: 2,
+    deadband: 0.2,
   }),
   metric("day_energy", {
     label: "Daily Production",
@@ -110,6 +152,7 @@ const inverter = [
     addr: 625,
     role: "grid.power",
     flow: GRID_FLOW,
+    deadband: 20,
   }),
   metric("ac/l1/voltage", {
     label: "Grid Voltage L1",
@@ -119,6 +162,7 @@ const inverter = [
     scale: 0.1,
     role: "grid.phase.voltage",
     index: 1,
+    deadband: 1,
   }),
   metric("ac/l2/voltage", {
     label: "Grid Voltage L2",
@@ -128,6 +172,7 @@ const inverter = [
     scale: 0.1,
     role: "grid.phase.voltage",
     index: 2,
+    deadband: 1,
   }),
   metric("ac/l3/voltage", {
     label: "Grid Voltage L3",
@@ -137,6 +182,7 @@ const inverter = [
     scale: 0.1,
     role: "grid.phase.voltage",
     index: 3,
+    deadband: 1,
   }),
   metric("ac/l1/ct/internal", {
     label: "Internal CT L1 Power",
@@ -147,6 +193,7 @@ const inverter = [
     role: "grid.phase.power",
     index: 1,
     flow: GRID_FLOW,
+    deadband: 20,
   }),
   metric("ac/l2/ct/internal", {
     label: "Internal CT L2 Power",
@@ -157,6 +204,7 @@ const inverter = [
     role: "grid.phase.power",
     index: 2,
     flow: GRID_FLOW,
+    deadband: 20,
   }),
   metric("ac/l3/ct/internal", {
     label: "Internal CT L3 Power",
@@ -167,6 +215,7 @@ const inverter = [
     role: "grid.phase.power",
     index: 3,
     flow: GRID_FLOW,
+    deadband: 20,
   }),
   metric("ac/total_internal_power", {
     label: "Total Internal Power",
@@ -174,6 +223,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 607,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/l1/ct/external", {
     label: "External CT L1 Power",
@@ -181,6 +232,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 616,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/l2/ct/external", {
     label: "External CT L2 Power",
@@ -188,6 +241,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 617,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/l3/ct/external", {
     label: "External CT L3 Power",
@@ -195,6 +250,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 618,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/daily_energy_bought", {
     label: "Daily Energy Bought",
@@ -240,6 +297,7 @@ const inverter = [
     role: "grid.phase.current",
     index: 1,
     flow: GRID_FLOW,
+    deadband: 0.2,
   }),
   metric("ac/l2/current", {
     label: "Current L2",
@@ -251,6 +309,7 @@ const inverter = [
     role: "grid.phase.current",
     index: 2,
     flow: GRID_FLOW,
+    deadband: 0.2,
   }),
   metric("ac/l3/current", {
     label: "Current L3",
@@ -262,6 +321,7 @@ const inverter = [
     role: "grid.phase.current",
     index: 3,
     flow: GRID_FLOW,
+    deadband: 0.2,
   }),
   metric("ac/l1/power", {
     label: "Inverter L1 Power",
@@ -269,6 +329,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 633,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/l2/power", {
     label: "Inverter L2 Power",
@@ -276,6 +338,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 634,
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("ac/l3/power", {
     label: "Inverter L3 Power",
@@ -283,6 +347,8 @@ const inverter = [
     group: "inverter",
     type: "S_WORD",
     addr: 635,
+    kind: "measurement",
+    deadband: 20,
   }),
   // Vendor "+1000" temperature encoding: register = °C×10 + 1000, so decode as
   // raw×0.1 − 100. Without the offset these read ~100 °C high (25 → 125).
@@ -295,6 +361,7 @@ const inverter = [
     scale: 0.1,
     offset: -100,
     role: "inverter.temperature.dc",
+    deadband: 0.5,
   }),
   metric("ac/temperature", {
     label: "AC Temperature",
@@ -305,6 +372,7 @@ const inverter = [
     scale: 0.1,
     offset: -100,
     role: "inverter.temperature.ac",
+    deadband: 0.5,
   }),
   // Declare intent — "sum every PV-string power" — not a hand-listed key set.
   // Resolved against the final metric set at build time, so a variant that adds
@@ -315,6 +383,7 @@ const inverter = [
     group: "inverter",
     role: "pv.total.power",
     computeExpr: sumOf({ role: "pv.string.power" }),
+    deadband: 20,
   }),
   // Power the inverter consumes for itself (conversion losses + standby draw),
   // from the node balance: everything flowing in minus what reaches the load.
@@ -332,6 +401,7 @@ const inverter = [
         sub: ["ac.ups.total_power"],
       },
     },
+    deadband: 20,
   }),
   // Directional power splits — the signed battery/grid registers broken into
   // positive-only components so the efficiency ratio (below) can sum true
@@ -343,24 +413,32 @@ const inverter = [
     unit: "W",
     group: "grid",
     computeExpr: { clamp: { key: "ac.total_power", min: 0 } },
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("grid/export_power", {
     label: "Grid Export Power",
     unit: "W",
     group: "grid",
     computeExpr: { diff: ["grid.import_power", "ac.total_power"] },
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("battery/discharge_power", {
     label: "Battery Discharge Power",
     unit: "W",
     group: "battery",
     computeExpr: { clamp: { key: "battery.power", min: 0 } },
+    kind: "measurement",
+    deadband: 20,
   }),
   metric("battery/charge_power", {
     label: "Battery Charge Power",
     unit: "W",
     group: "battery",
     computeExpr: { diff: ["battery.discharge_power", "battery.power"] },
+    kind: "measurement",
+    deadband: 20,
   }),
   // Inverter conversion efficiency = useful power delivered ÷ power drawn in,
   // both as positive-only sums so charging / exporting count as OUTPUT rather
@@ -383,6 +461,7 @@ const inverter = [
         scale: 100,
       },
     },
+    deadband: 1,
   }),
 ];
 
@@ -433,6 +512,7 @@ const battery = [
     addr: 590,
     role: "battery.power",
     flow: CHARGE_FLOW,
+    deadband: 20,
   }),
   metric("battery/voltage", {
     label: "Battery Voltage",
@@ -441,6 +521,7 @@ const battery = [
     addr: 587,
     scale: 0.01,
     role: "battery.voltage",
+    deadband: 0.1,
   }),
   metric("battery/soc", {
     label: "Battery SOC",
@@ -465,6 +546,8 @@ const battery = [
     addr: 591,
     scale: 0.01,
     flow: CHARGE_FLOW,
+    kind: "measurement",
+    deadband: 0.2,
   }),
   metric("battery/2/current", {
     label: "Battery 2 Current",
@@ -474,6 +557,8 @@ const battery = [
     addr: 594,
     scale: 0.01,
     flow: CHARGE_FLOW,
+    kind: "measurement",
+    deadband: 0.2,
   }),
   metric("battery/current", {
     label: "Battery Current",
@@ -491,6 +576,7 @@ const battery = [
     scale: 0.1,
     offset: -100,
     role: "battery.temperature",
+    deadband: 0.5,
   }),
   // Battery Charging Type Control Mode (read-only for now). Decides whether the
   // time-of-use schedule is honored via target voltage (lead-acid, four-stage)
@@ -515,6 +601,7 @@ const generator = [
     scale: 0.1,
     role: "generator.phase.voltage",
     index: 1,
+    deadband: 1,
   }),
   metric("ac/generator/b/voltage", {
     label: "Gen port B Voltage",
@@ -524,6 +611,7 @@ const generator = [
     scale: 0.1,
     role: "generator.phase.voltage",
     index: 2,
+    deadband: 1,
   }),
   metric("ac/generator/c/voltage", {
     label: "Gen port C Voltage",
@@ -533,6 +621,7 @@ const generator = [
     scale: 0.1,
     role: "generator.phase.voltage",
     index: 3,
+    deadband: 1,
   }),
   metric("ac/generator/a/power", {
     label: "Gen port A Power",
@@ -541,6 +630,7 @@ const generator = [
     addr: 664,
     role: "generator.phase.power",
     index: 1,
+    deadband: 20,
   }),
   metric("ac/generator/b/power", {
     label: "Gen port B Power",
@@ -549,6 +639,7 @@ const generator = [
     addr: 665,
     role: "generator.phase.power",
     index: 2,
+    deadband: 20,
   }),
   metric("ac/generator/c/power", {
     label: "Gen port C Power",
@@ -557,6 +648,7 @@ const generator = [
     addr: 666,
     role: "generator.phase.power",
     index: 3,
+    deadband: 20,
   }),
   metric("ac/generator/total_power", {
     label: "Total Power of Gen Ports",
@@ -564,6 +656,7 @@ const generator = [
     group: "generator",
     addr: 667,
     role: "generator.power",
+    deadband: 20,
   }),
   metric("ac/generator/daily_energy", {
     label: "Daily Generator Production",
@@ -586,6 +679,7 @@ const settings = [
     role: "setting.battery.max_charge_current",
     // Generic family envelope (largest SKU); individual SKUs tighten it in `models`.
     range: { min: 0, max: 350 },
+    storage: "series",
   }),
   metric("settings/battery/maximum_discharge_current", {
     label: "Max battery discharge current",
@@ -595,6 +689,7 @@ const settings = [
     access: "rw",
     role: "setting.battery.max_discharge_current",
     range: { min: 0, max: 350 },
+    storage: "series",
   }),
   metric("settings/battery/maximum_grid_charge_current", {
     label: "Max battery grid-charge current",
@@ -603,6 +698,7 @@ const settings = [
     addr: 128,
     access: "rw",
     role: "setting.battery.max_grid_charge_current",
+    storage: "series",
   }),
   metric("settings/battery/grid_charge", {
     label: "Grid Charge enabled",
@@ -627,6 +723,7 @@ const settings = [
     addr: 143,
     access: "rw",
     role: "setting.solar_sell.max_power",
+    storage: "series",
   }),
   metric("settings/solar_sell", {
     label: "Solar sell enabled",
@@ -645,6 +742,8 @@ const system = [
     group: "system",
     type: "RAW",
     addr: [62, 63, 64],
+    kind: "status",
+    storage: "none",
   }),
 ];
 
@@ -694,6 +793,8 @@ const timeOfUse: MetricDataDef[] = [
       group: "timeofuse",
       addr,
       access: "rw",
+      // A percentage with no bounds cannot clamp a write or scale a gauge.
+      range: { min: 0, max: 100 },
     }),
   ),
   ...[172, 173, 174, 175, 176, 177].map((addr, i) =>
@@ -714,6 +815,7 @@ const load = [
     group: "load",
     addr: 653,
     role: "load.power",
+    deadband: 20,
   }),
   metric("ac/ups/l1/power", {
     label: "Load L1 Power",
@@ -722,6 +824,7 @@ const load = [
     addr: 650,
     role: "load.phase.power",
     index: 1,
+    deadband: 20,
   }),
   metric("ac/ups/l2/power", {
     label: "Load L2 Power",
@@ -730,6 +833,7 @@ const load = [
     addr: 651,
     role: "load.phase.power",
     index: 2,
+    deadband: 20,
   }),
   metric("ac/ups/l3/power", {
     label: "Load L3 Power",
@@ -738,6 +842,7 @@ const load = [
     addr: 652,
     role: "load.phase.power",
     index: 3,
+    deadband: 20,
   }),
   metric("ac/ups/l1/voltage", {
     label: "Load Voltage L1",
@@ -747,6 +852,7 @@ const load = [
     scale: 0.1,
     role: "load.phase.voltage",
     index: 1,
+    deadband: 1,
   }),
   metric("ac/ups/l2/voltage", {
     label: "Load Voltage L2",
@@ -756,6 +862,7 @@ const load = [
     scale: 0.1,
     role: "load.phase.voltage",
     index: 2,
+    deadband: 1,
   }),
   metric("ac/ups/l3/voltage", {
     label: "Load Voltage L3",
@@ -765,6 +872,7 @@ const load = [
     scale: 0.1,
     role: "load.phase.voltage",
     index: 3,
+    deadband: 1,
   }),
   metric("ac/ups/daily_energy", {
     label: "Daily Load Consumption",

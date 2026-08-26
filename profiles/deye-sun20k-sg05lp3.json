@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "id": "deye-sun20k-sg05lp3",
   "name": "SUN-20K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "metrics": [
     {
       "key": "inverter.status",
@@ -25,6 +25,13 @@
         "2": "Normal",
         "3": "Alarm",
         "4": "Fault"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          500
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -44,6 +51,13 @@
       "enumLabels": {
         "0": "Open",
         "1": "Closed"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          552
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -59,7 +73,15 @@
       "scale": 1,
       "access": "r",
       "role": "pv.string.power",
-      "index": 1
+      "index": 1,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          672
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "dc.pv2.power",
@@ -74,7 +96,15 @@
       "scale": 1,
       "access": "r",
       "role": "pv.string.power",
-      "index": 2
+      "index": 2,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          673
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "dc.pv1.voltage",
@@ -89,7 +119,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "pv.string.voltage",
-      "index": 1
+      "index": 1,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          676
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "dc.pv2.voltage",
@@ -104,7 +142,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "pv.string.voltage",
-      "index": 2
+      "index": 2,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          678
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "dc.pv1.current",
@@ -119,7 +165,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "pv.string.current",
-      "index": 1
+      "index": 1,
+      "deadband": 0.2,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          677
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "dc.pv2.current",
@@ -134,7 +188,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "pv.string.current",
-      "index": 2
+      "index": 2,
+      "deadband": 0.2,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          679
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "day_energy",
@@ -148,7 +210,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "production.today"
+      "role": "production.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          529
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "total_energy",
@@ -163,7 +232,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "production.total"
+      "role": "production.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          534,
+          535
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "ac.total_power",
@@ -178,9 +255,17 @@
       "scale": 1,
       "access": "r",
       "role": "grid.power",
+      "deadband": 20,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          625
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -196,7 +281,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "grid.phase.voltage",
-      "index": 1
+      "index": 1,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          598
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.l2.voltage",
@@ -211,7 +304,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "grid.phase.voltage",
-      "index": 2
+      "index": 2,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          599
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.l3.voltage",
@@ -226,7 +327,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "grid.phase.voltage",
-      "index": 3
+      "index": 3,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          600
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.l1.ct.internal",
@@ -242,9 +351,17 @@
       "access": "r",
       "role": "grid.phase.power",
       "index": 1,
+      "deadband": 20,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          604
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -261,9 +378,17 @@
       "access": "r",
       "role": "grid.phase.power",
       "index": 2,
+      "deadband": 20,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          605
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -280,9 +405,17 @@
       "access": "r",
       "role": "grid.phase.power",
       "index": 3,
+      "deadband": 20,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          606
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -296,7 +429,16 @@
         607
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          607
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.l1.ct.external",
@@ -309,7 +451,16 @@
         616
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          616
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.l2.ct.external",
@@ -322,7 +473,16 @@
         617
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          617
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.l3.ct.external",
@@ -335,7 +495,16 @@
         618
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          618
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.daily_energy_bought",
@@ -349,7 +518,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "grid.energy.imported.today"
+      "role": "grid.energy.imported.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          520
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.total_energy_bought",
@@ -364,7 +540,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "grid.energy.imported.total"
+      "role": "grid.energy.imported.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          522,
+          523
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "ac.daily_energy_sold",
@@ -378,7 +562,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "grid.energy.exported.today"
+      "role": "grid.energy.exported.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          521
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.total_energy_sold",
@@ -393,7 +584,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "grid.energy.exported.total"
+      "role": "grid.energy.exported.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          524,
+          525
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "ac.l1.current",
@@ -409,9 +608,17 @@
       "access": "r",
       "role": "grid.phase.current",
       "index": 1,
+      "deadband": 0.2,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          630
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -428,9 +635,17 @@
       "access": "r",
       "role": "grid.phase.current",
       "index": 2,
+      "deadband": 0.2,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          631
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -447,9 +662,17 @@
       "access": "r",
       "role": "grid.phase.current",
       "index": 3,
+      "deadband": 0.2,
       "flow": {
         "positive": "Importing",
         "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          632
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -463,7 +686,16 @@
         633
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          633
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.l2.power",
@@ -476,7 +708,16 @@
         634
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          634
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.l3.power",
@@ -489,7 +730,16 @@
         635
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          635
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "radiator_temp",
@@ -504,7 +754,15 @@
       "scale": 0.1,
       "offset": -100,
       "access": "r",
-      "role": "inverter.temperature.dc"
+      "role": "inverter.temperature.dc",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          540
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "ac.temperature",
@@ -519,7 +777,15 @@
       "scale": 0.1,
       "offset": -100,
       "access": "r",
-      "role": "inverter.temperature.ac"
+      "role": "inverter.temperature.ac",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          541
+        ],
+        "type": "S_WORD"
+      }
     },
     {
       "key": "dc.total_power",
@@ -532,6 +798,16 @@
       "scale": 1,
       "access": "r",
       "role": "pv.total.power",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "sum": [
+            "dc.pv1.power",
+            "dc.pv2.power"
+          ]
+        }
+      },
       "computeExpr": {
         "sum": [
           "dc.pv1.power",
@@ -561,7 +837,23 @@
           ]
         }
       },
-      "role": "inverter.power"
+      "role": "inverter.power",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "combine": {
+            "add": [
+              "dc.total_power",
+              "battery.power",
+              "ac.total_power"
+            ],
+            "sub": [
+              "ac.ups.total_power"
+            ]
+          }
+        }
+      }
     },
     {
       "key": "grid.import_power",
@@ -577,6 +869,17 @@
         "clamp": {
           "key": "ac.total_power",
           "min": 0
+        }
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "clamp": {
+            "key": "ac.total_power",
+            "min": 0
+          }
         }
       }
     },
@@ -595,6 +898,17 @@
           "grid.import_power",
           "ac.total_power"
         ]
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "diff": [
+            "grid.import_power",
+            "ac.total_power"
+          ]
+        }
       }
     },
     {
@@ -611,6 +925,17 @@
         "clamp": {
           "key": "battery.power",
           "min": 0
+        }
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "clamp": {
+            "key": "battery.power",
+            "min": 0
+          }
         }
       }
     },
@@ -629,6 +954,17 @@
           "battery.discharge_power",
           "battery.power"
         ]
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "diff": [
+            "battery.discharge_power",
+            "battery.power"
+          ]
+        }
       }
     },
     {
@@ -658,9 +994,28 @@
       },
       "role": "inverter.efficiency",
       "kind": "measurement",
+      "deadband": 1,
       "range": {
         "min": 0,
         "max": 100
+      },
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "ratio": {
+            "num": [
+              "ac.ups.total_power",
+              "battery.charge_power",
+              "grid.export_power"
+            ],
+            "den": [
+              "dc.total_power",
+              "battery.discharge_power",
+              "grid.import_power"
+            ],
+            "scale": 100
+          }
+        }
       }
     },
     {
@@ -675,7 +1030,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "battery.energy.charged.today"
+      "role": "battery.energy.charged.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          514
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "battery.daily_discharge",
@@ -689,7 +1051,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "battery.energy.discharged.today"
+      "role": "battery.energy.discharged.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          515
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "battery.total_charge",
@@ -704,7 +1073,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "battery.energy.charged.total"
+      "role": "battery.energy.charged.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          516,
+          517
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "battery.total_discharge",
@@ -719,7 +1096,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "battery.energy.discharged.total"
+      "role": "battery.energy.discharged.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          518,
+          519
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "battery.power",
@@ -734,9 +1119,17 @@
       "scale": 1,
       "access": "r",
       "role": "battery.power",
+      "deadband": 20,
       "flow": {
         "positive": "Discharging",
         "negative": "Charging"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          590
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -751,7 +1144,15 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "role": "battery.voltage"
+      "role": "battery.voltage",
+      "deadband": 0.1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          587
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "battery.soc",
@@ -769,6 +1170,13 @@
       "range": {
         "min": 0,
         "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          588
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -783,9 +1191,18 @@
       ],
       "scale": 0.01,
       "access": "r",
+      "kind": "measurement",
+      "deadband": 0.2,
       "flow": {
         "positive": "Discharging",
         "negative": "Charging"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          591
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -800,9 +1217,18 @@
       ],
       "scale": 0.01,
       "access": "r",
+      "kind": "measurement",
+      "deadband": 0.2,
       "flow": {
         "positive": "Discharging",
         "negative": "Charging"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          594
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -825,6 +1251,15 @@
       "flow": {
         "positive": "Discharging",
         "negative": "Charging"
+      },
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "sum": [
+            "battery.1.current",
+            "battery.2.current"
+          ]
+        }
       }
     },
     {
@@ -840,7 +1275,15 @@
       "scale": 0.1,
       "offset": -100,
       "access": "r",
-      "role": "battery.temperature"
+      "role": "battery.temperature",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          586
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "battery.mode",
@@ -859,6 +1302,13 @@
       "enumLabels": {
         "0": "Lead-acid (voltage)",
         "1": "Lithium (SOC)"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          98
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -874,7 +1324,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "generator.phase.voltage",
-      "index": 1
+      "index": 1,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          661
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.b.voltage",
@@ -889,7 +1347,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "generator.phase.voltage",
-      "index": 2
+      "index": 2,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          662
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.c.voltage",
@@ -904,7 +1370,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "generator.phase.voltage",
-      "index": 3
+      "index": 3,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          663
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.a.power",
@@ -919,7 +1393,15 @@
       "scale": 1,
       "access": "r",
       "role": "generator.phase.power",
-      "index": 1
+      "index": 1,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          664
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.b.power",
@@ -934,7 +1416,15 @@
       "scale": 1,
       "access": "r",
       "role": "generator.phase.power",
-      "index": 2
+      "index": 2,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          665
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.c.power",
@@ -949,7 +1439,15 @@
       "scale": 1,
       "access": "r",
       "role": "generator.phase.power",
-      "index": 3
+      "index": 3,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          666
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.total_power",
@@ -963,7 +1461,15 @@
       ],
       "scale": 1,
       "access": "r",
-      "role": "generator.power"
+      "role": "generator.power",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          667
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.generator.daily_energy",
@@ -977,7 +1483,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "generator.energy.today"
+      "role": "generator.energy.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          536
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "settings.battery.maximum_charge_current",
@@ -992,9 +1505,17 @@
       "scale": 1,
       "access": "rw",
       "role": "setting.battery.max_charge_current",
+      "storage": "series",
       "range": {
         "min": 0,
         "max": 350
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          108
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1010,9 +1531,17 @@
       "scale": 1,
       "access": "rw",
       "role": "setting.battery.max_discharge_current",
+      "storage": "series",
       "range": {
         "min": 0,
         "max": 350
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          109
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1027,7 +1556,15 @@
       ],
       "scale": 1,
       "access": "rw",
-      "role": "setting.battery.max_grid_charge_current"
+      "role": "setting.battery.max_grid_charge_current",
+      "storage": "series",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          128
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "settings.battery.grid_charge",
@@ -1045,6 +1582,13 @@
       "enumLabels": {
         "0": "Off",
         "1": "On"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          130
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1064,6 +1608,13 @@
         "0": "Selling First",
         "1": "Zero Export to Load",
         "2": "Zero Export to CT"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          142
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1078,7 +1629,15 @@
       ],
       "scale": 1,
       "access": "rw",
-      "role": "setting.solar_sell.max_power"
+      "role": "setting.solar_sell.max_power",
+      "storage": "series",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          143
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "settings.solar_sell",
@@ -1096,6 +1655,13 @@
       "enumLabels": {
         "0": "Off",
         "1": "On"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          145
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1111,7 +1677,18 @@
         64
       ],
       "scale": 1,
-      "access": "r"
+      "access": "r",
+      "kind": "status",
+      "storage": "none",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          62,
+          63,
+          64
+        ],
+        "type": "RAW"
+      }
     },
     {
       "key": "timeofuse.selling",
@@ -1124,7 +1701,14 @@
         146
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          146
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.1",
@@ -1137,7 +1721,14 @@
         148
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          148
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.2",
@@ -1150,7 +1741,14 @@
         149
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          149
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.3",
@@ -1163,7 +1761,14 @@
         150
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          150
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.4",
@@ -1176,7 +1781,14 @@
         151
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          151
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.5",
@@ -1189,7 +1801,14 @@
         152
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          152
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.time.6",
@@ -1202,7 +1821,14 @@
         153
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          153
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.power.1",
@@ -1219,6 +1845,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          154
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1236,6 +1869,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          155
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1253,6 +1893,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          156
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1270,6 +1917,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          157
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1287,6 +1941,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          158
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1304,6 +1965,13 @@
       "range": {
         "min": 0,
         "max": 20000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          159
+        ],
+        "type": "U_WORD"
       }
     },
     {
@@ -1317,7 +1985,14 @@
         160
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          160
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.voltage.2",
@@ -1330,7 +2005,14 @@
         161
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          161
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.voltage.3",
@@ -1343,7 +2025,14 @@
         162
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          162
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.voltage.4",
@@ -1356,7 +2045,14 @@
         163
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          163
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.voltage.5",
@@ -1369,7 +2065,14 @@
         164
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          164
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.voltage.6",
@@ -1382,7 +2085,14 @@
         165
       ],
       "scale": 0.01,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          165
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.1",
@@ -1395,7 +2105,18 @@
         166
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          166
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.2",
@@ -1408,7 +2129,18 @@
         167
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          167
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.3",
@@ -1421,7 +2153,18 @@
         168
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          168
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.4",
@@ -1434,7 +2177,18 @@
         169
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          169
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.5",
@@ -1447,7 +2201,18 @@
         170
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          170
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.soc.6",
@@ -1460,7 +2225,18 @@
         171
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          171
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.1",
@@ -1473,7 +2249,14 @@
         172
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          172
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.2",
@@ -1486,7 +2269,14 @@
         173
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          173
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.3",
@@ -1499,7 +2289,14 @@
         174
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          174
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.4",
@@ -1512,7 +2309,14 @@
         175
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          175
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.5",
@@ -1525,7 +2329,14 @@
         176
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          176
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "timeofuse.enabled.6",
@@ -1538,7 +2349,14 @@
         177
       ],
       "scale": 1,
-      "access": "rw"
+      "access": "rw",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          177
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.total_power",
@@ -1552,7 +2370,15 @@
       ],
       "scale": 1,
       "access": "r",
-      "role": "load.power"
+      "role": "load.power",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          653
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l1.power",
@@ -1567,7 +2393,15 @@
       "scale": 1,
       "access": "r",
       "role": "load.phase.power",
-      "index": 1
+      "index": 1,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          650
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l2.power",
@@ -1582,7 +2416,15 @@
       "scale": 1,
       "access": "r",
       "role": "load.phase.power",
-      "index": 2
+      "index": 2,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          651
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l3.power",
@@ -1597,7 +2439,15 @@
       "scale": 1,
       "access": "r",
       "role": "load.phase.power",
-      "index": 3
+      "index": 3,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          652
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l1.voltage",
@@ -1612,7 +2462,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "load.phase.voltage",
-      "index": 1
+      "index": 1,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          644
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l2.voltage",
@@ -1627,7 +2485,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "load.phase.voltage",
-      "index": 2
+      "index": 2,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          645
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.l3.voltage",
@@ -1642,7 +2508,15 @@
       "scale": 0.1,
       "access": "r",
       "role": "load.phase.voltage",
-      "index": 3
+      "index": 3,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          646
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.daily_energy",
@@ -1656,7 +2530,14 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "load.energy.today"
+      "role": "load.energy.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          526
+        ],
+        "type": "U_WORD"
+      }
     },
     {
       "key": "ac.ups.total_energy",
@@ -1671,7 +2552,15 @@
       ],
       "scale": 0.1,
       "access": "r",
-      "role": "load.energy.total"
+      "role": "load.energy.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          527,
+          528
+        ],
+        "type": "U_DWORD"
+      }
     },
     {
       "key": "settings.battery.lock",
@@ -1692,6 +2581,15 @@
       "enumLabels": {
         "0": "Unlocked",
         "1": "Locked"
+      },
+      "binding": {
+        "via": "control",
+        "expr": {
+          "snapshotToggle": {
+            "target": "settings.battery.maximum_discharge_current",
+            "lockedValue": 0
+          }
+        }
       }
     }
   ]
