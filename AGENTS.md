@@ -72,6 +72,27 @@ value that just isn't rendered by role. See the full catalog of role names and t
 expected units in the concept doc (link below), or run `bunx profile coverage` to see
 which roles you've mapped and which are missing.
 
+### Storage classes and deadbands
+
+Two optional fields decide how much of a register's history is kept. Both default sensibly, so
+omitting them is fine — but only the vendor map knows what a register is worth:
+
+- `storage: "series" | "config" | "none"` — where values go. Writable registers default to
+  `config` (a change-log, not the timeseries table): the time-of-use slots and settings in this
+  map were a third of every row the app wrote. Override to `series` for a setting whose history
+  is worth charting (the current limits the automation engine writes), and `none` for a packed
+  `RAW` register that is never part of the numeric sample.
+- `deadband: <number>` — the smallest change worth storing, **in the register's own unit**. It is
+  compared against the last value *stored*, so the stored series is never wrong by more than the
+  threshold. There is no `0` (absence means "store every change"), it must be at least `scale`,
+  and it is rejected on counters and status enums — a threshold makes a counter lag and can
+  swallow a state transition.
+
+Conventions used by both Deye families, chosen above each register's quantisation step and inside
+instrument noise: **20 W**, **1 V** (0.1 V on the battery pack), **0.2 A**, **0.5 °C**, **1**
+percentage point on the computed efficiency. The full table and its reasoning are in the header of
+each `src/families/*.ts`.
+
 ### Registers & encoding gotchas
 
 - `U_WORD`/`S_WORD` → one address; `U_DWORD` → `[low, high]`; `RAW` → N words.
