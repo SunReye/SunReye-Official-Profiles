@@ -71,6 +71,14 @@ export const settings = [
   // (185-188) are deliberately NOT mapped: a wrong write there is a pack or a
   // grid-compliance problem, not a UI annoyance. Read them off the inverter's
   // own display.
+  //
+  // 107 (TEMPCO) and 114 (charge efficiency) are out for the same reason plus a
+  // second one: both are lead-acid-era knobs. TEMPCO shifts the charge voltage
+  // with pack temperature, which only means anything inside the four-stage
+  // curve above, and charge efficiency calibrates a coulomb-counted SoC. On the
+  // reference unit (10.20.0.62) register 98 reads 1 — lithium, SoC from the BMS
+  // — so neither is in any active path, and TEMPCO is a charge-curve write we
+  // would be shipping for nothing.
   metric("settings/battery/capacity", {
     label: "Battery Capacity",
     unit: "Ah",
@@ -79,30 +87,6 @@ export const settings = [
     access: "rw",
     kind: "setting",
     range: { min: 0, max: 2000 },
-  }),
-  // The doc's note column says 带有正负的int型 (signed int) while its range column
-  // says [0,50]; the range is a magnitude. Signed matters because lead-acid
-  // compensation is conventionally negative, and unsigned would decode -5 as
-  // 65531. Reads 5 on the reference unit either way.
-  metric("settings/battery/tempco", {
-    label: "Battery Temperature Compensation",
-    unit: "mV/°C",
-    group: "settings",
-    type: "S_WORD",
-    addr: 107,
-    access: "rw",
-    kind: "setting",
-    range: { min: 0, max: 50 },
-  }),
-  metric("settings/battery/charge_efficiency", {
-    label: "Battery Charge Efficiency",
-    unit: "%",
-    group: "settings",
-    addr: 114,
-    scale: 0.1,
-    access: "rw",
-    kind: "setting",
-    range: { min: 0, max: 100 },
   }),
   metric("settings/battery/shutdown_soc", {
     label: "Battery Shutdown SoC",
