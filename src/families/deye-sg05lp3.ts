@@ -2,7 +2,6 @@ import { defineFamily } from "@sunreye/profile-sdk";
 import type { MetricDataDef } from "@sunreye/profile-sdk";
 
 import { battery } from "./deye-sg05lp3/battery";
-import { bms } from "./deye-sg05lp3/bms";
 import { controls } from "./deye-sg05lp3/controls";
 import { derived } from "./deye-sg05lp3/derived";
 import { generator } from "./deye-sg05lp3/generator";
@@ -32,7 +31,7 @@ import { timeOfUse } from "./deye-sg05lp3/time-of-use";
  *   solar.ts        PV strings + production counters
  *   grid.ts         per-phase AC, CT clamps, import/export counters
  *   battery.ts      pack measurements + energy counters
- *   bms.ts          what the connected pack's BMS reports (10000+)
+ *   bms.ts          the pack's own BMS block (10000+) — NOT wired in, see below
  *   generator.ts    generator input ports
  *   load.ts         backup / UPS output
  *   settings.ts     writable settings
@@ -46,6 +45,14 @@ import { timeOfUse } from "./deye-sg05lp3/time-of-use";
  *
  * Only ./deye-sg05lp3/derived.ts is order-sensitive; every other table is a flat
  * list and the order below is just a reading order.
+ *
+ * `bms` is deliberately absent from the list. Its registers live at 10000+, so
+ * including it adds a fourth read block 9300 registers past every other one, and
+ * this hardware does not answer it — the poll times out. The transport's
+ * split-and-remember fallback only covers Modbus exception 2 (illegal data
+ * address); a device that stays silent has no fallback. The module is kept
+ * because the addresses are transcribed and verified; re-add `...bms` here once
+ * a probe shows the range responds.
  */
 export { models } from "./deye-sg05lp3/models";
 export type { DeyeKey } from "./deye-sg05lp3/keys";
@@ -56,7 +63,6 @@ export const metrics: MetricDataDef[] = [
   ...solar,
   ...grid,
   ...battery,
-  ...bms,
   ...generator,
   ...load,
   ...settings,
