@@ -71,6 +71,16 @@ export const settings = [
   // (185-188) are deliberately NOT mapped: a wrong write there is a pack or a
   // grid-compliance problem, not a UI annoyance. Read them off the inverter's
   // own display.
+  //
+  // 107 (TEMPCO) and 114 (charge efficiency) are out for a different reason:
+  // both decode correctly, they are simply not settings a lithium system uses.
+  // Controls is one flat page today — every writable metric a profile declares
+  // lands on it, with no grouping and no per-profile subpages — so each knob
+  // that does nothing on the installed hardware pushes the ones that matter
+  // further down. On the reference unit register 98 reads 1 (lithium, SoC from
+  // the BMS) and 111 reads 1, so neither register is in an active path: they
+  // are lead-acid-era parameters, and the cost of carrying them is screen space
+  // rather than risk.
   metric("settings/battery/capacity", {
     label: "Battery Capacity",
     unit: "Ah",
@@ -79,30 +89,6 @@ export const settings = [
     access: "rw",
     kind: "setting",
     range: { min: 0, max: 2000 },
-  }),
-  // The doc's note column says 带有正负的int型 (signed int) while its range column
-  // says [0,50]; the range is a magnitude. Signed matters because lead-acid
-  // compensation is conventionally negative, and unsigned would decode -5 as
-  // 65531. Reads 5 on the reference unit either way.
-  metric("settings/battery/tempco", {
-    label: "Battery Temperature Compensation",
-    unit: "mV/°C",
-    group: "settings",
-    type: "S_WORD",
-    addr: 107,
-    access: "rw",
-    kind: "setting",
-    range: { min: 0, max: 50 },
-  }),
-  metric("settings/battery/charge_efficiency", {
-    label: "Battery Charge Efficiency",
-    unit: "%",
-    group: "settings",
-    addr: 114,
-    scale: 0.1,
-    access: "rw",
-    kind: "setting",
-    range: { min: 0, max: 100 },
   }),
   metric("settings/battery/shutdown_soc", {
     label: "Battery Shutdown SoC",

@@ -3,7 +3,7 @@
   "id": "deye-sun5k-sg05lp3",
   "name": "SUN-5K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "metrics": [
     {
       "key": "inverter.status",
@@ -2086,56 +2086,6 @@
         "via": "modbus",
         "addr": [
           102
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "settings.battery.tempco",
-      "topic": "settings/battery/tempco",
-      "label": "Battery Temperature Compensation",
-      "unit": "mV/°C",
-      "group": "settings",
-      "type": "S_WORD",
-      "addresses": [
-        107
-      ],
-      "scale": 1,
-      "access": "rw",
-      "kind": "setting",
-      "range": {
-        "min": 0,
-        "max": 50
-      },
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          107
-        ],
-        "type": "S_WORD"
-      }
-    },
-    {
-      "key": "settings.battery.charge_efficiency",
-      "topic": "settings/battery/charge_efficiency",
-      "label": "Battery Charge Efficiency",
-      "unit": "%",
-      "group": "settings",
-      "type": "U_WORD",
-      "addresses": [
-        114
-      ],
-      "scale": 0.1,
-      "access": "rw",
-      "kind": "setting",
-      "range": {
-        "min": 0,
-        "max": 100
-      },
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          114
         ],
         "type": "U_WORD"
       }
