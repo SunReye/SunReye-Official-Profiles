@@ -2,6 +2,12 @@ import { metric } from "@sunreye/profile-sdk";
 import { CHARGE_FLOW } from "./conventions";
 
 /**
+ * NOT CURRENTLY SHIPPED — this table is not spread into the family's metric
+ * list (see the note in ../deye-sg05lp3.ts). Reading 10000+ adds a read block
+ * far outside every other region and the inverter does not answer it; the poll
+ * times out. Kept because the transcription is done and verified against the
+ * vendor doc, ready for the day a probe shows the range responds.
+ *
  * Deye battery read-only area (BMS pack 1), doc v105.4 section 4 —
  * "德业电池只读区 (低压三相、低压单相) / LV single/three phase inverter", which is
  * the section that applies to this family. (Sections 5.4.1/5.4.2 at the same

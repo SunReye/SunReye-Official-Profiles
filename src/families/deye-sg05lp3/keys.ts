@@ -1,5 +1,4 @@
 import { battery } from "./battery";
-import { bms } from "./bms";
 import { derived } from "./derived";
 import { generator } from "./generator";
 import { grid } from "./grid";
@@ -24,7 +23,6 @@ export type DeyeKey =
   | (typeof grid)[number]["key"]
   | (typeof derived)[number]["key"]
   | (typeof battery)[number]["key"]
-  | (typeof bms)[number]["key"]
   | (typeof generator)[number]["key"]
   | (typeof settings)[number]["key"]
   | (typeof system)[number]["key"]
