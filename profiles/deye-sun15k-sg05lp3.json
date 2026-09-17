@@ -3,7 +3,7 @@
   "id": "deye-sun15k-sg05lp3",
   "name": "SUN-15K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "metrics": [
     {
       "key": "inverter.status",
@@ -2234,7 +2234,7 @@
       "label": "Battery Temperature Compensation",
       "unit": "mV/°C",
       "group": "settings",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         107
       ],
@@ -2250,7 +2250,7 @@
         "addr": [
           107
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
