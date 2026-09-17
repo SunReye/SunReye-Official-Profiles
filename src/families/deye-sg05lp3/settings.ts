@@ -80,10 +80,15 @@ export const settings = [
     kind: "setting",
     range: { min: 0, max: 2000 },
   }),
+  // The doc's note column says 带有正负的int型 (signed int) while its range column
+  // says [0,50]; the range is a magnitude. Signed matters because lead-acid
+  // compensation is conventionally negative, and unsigned would decode -5 as
+  // 65531. Reads 5 on the reference unit either way.
   metric("settings/battery/tempco", {
     label: "Battery Temperature Compensation",
     unit: "mV/°C",
     group: "settings",
+    type: "S_WORD",
     addr: 107,
     access: "rw",
     kind: "setting",
