@@ -20,6 +20,42 @@ import {
 //     dashboards; verify against your unit if a direction looks inverted.
 
 // Direction labels for signed metrics, shared across the register map.
+/**
+ * Storage classes and deadbands (SunReye's storage-wear work).
+ *
+ * Two fields decide how much of this map reaches disk, and both are stated here
+ * rather than derived downstream, because only the vendor map says what a
+ * register is worth keeping:
+ *
+ * - `storage` - `config` (the default for every writable register) keeps a
+ *   change-log instead of a timeseries row per poll; the configuration registers
+ *   in this map were a third of every row the app wrote. The four current/power
+ *   limits the automation engine writes are marked `series` explicitly: their
+ *   history charts against battery power and is worth keeping. `settings/system_time`
+ *   is `none` - a packed RAW register is never part of the numeric sample, so
+ *   there is no series to keep.
+ * - `deadband` - the smallest change worth storing, in the register's own unit,
+ *   compared against the last value actually *stored* (so the stored series is
+ *   never wrong by more than the threshold). Absent means every change is kept,
+ *   which is what counters and enums get: a threshold makes a counter lag and can
+ *   swallow a state transition.
+ *
+ * The values are conservative and uniform per unit, chosen to sit above the
+ * register's own quantisation step and well inside instrument noise:
+ *
+ * | Unit | Deadband | Reasoning |
+ * | --- | --- | --- |
+ * | W | 20 | ~0.2 % of a 10 kW inverter, above the coarsest power step (10 W) |
+ * | V (AC/PV) | 1 | ~0.4 % of 230 V, 10x the 0.1 V register step |
+ * | V (battery) | 0.1 | ~0.2 % of a 48 V pack, 10x the 10 mV step |
+ * | A | 0.2 | 20x the 10 mA step; 1 A-resolution registers get none |
+ * | °C | 0.5 | 5x the register step, below any real thermal excursion |
+ * | % (efficiency) | 1 | a computed ratio; one point is inside its own noise |
+ *
+ * Raise them per model if a site is noisier; each one can only cost fidelity
+ * bounded by the number itself.
+ */
+
 const CHARGE_FLOW = { positive: "Discharging", negative: "Charging" } as const;
 const GRID_FLOW = { positive: "Importing", negative: "Exporting" } as const;
 
@@ -36,6 +72,7 @@ const metrics = [
       addr: 672,
       scale: 10,
       unit: "W",
+      deadband: 20,
     }),
     metric("dc/pv2/power", {
       label: "PV2 Power",
@@ -45,6 +82,7 @@ const metrics = [
       addr: 673,
       scale: 10,
       unit: "W",
+      deadband: 20,
     }),
     metric("dc/pv3/power", {
       label: "PV3 Power",
@@ -54,6 +92,7 @@ const metrics = [
       addr: 674,
       scale: 10,
       unit: "W",
+      deadband: 20,
     }),
     metric("dc/pv4/power", {
       label: "PV4 Power",
@@ -63,6 +102,7 @@ const metrics = [
       addr: 675,
       scale: 10,
       unit: "W",
+      deadband: 20,
     }),
     metric("dc/pv1/voltage", {
       label: "PV1 Voltage",
@@ -72,6 +112,7 @@ const metrics = [
       addr: 676,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("dc/pv2/voltage", {
       label: "PV2 Voltage",
@@ -81,6 +122,7 @@ const metrics = [
       addr: 678,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("dc/pv3/voltage", {
       label: "PV3 Voltage",
@@ -90,6 +132,7 @@ const metrics = [
       addr: 680,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("dc/pv4/voltage", {
       label: "PV4 Voltage",
@@ -99,6 +142,7 @@ const metrics = [
       addr: 682,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("dc/pv1/current", {
       label: "PV1 Current",
@@ -108,6 +152,7 @@ const metrics = [
       addr: 677,
       scale: 0.1,
       unit: "A",
+      deadband: 0.2,
     }),
     metric("dc/pv2/current", {
       label: "PV2 Current",
@@ -117,6 +162,7 @@ const metrics = [
       addr: 679,
       scale: 0.1,
       unit: "A",
+      deadband: 0.2,
     }),
     metric("dc/pv3/current", {
       label: "PV3 Current",
@@ -126,6 +172,7 @@ const metrics = [
       addr: 681,
       scale: 0.1,
       unit: "A",
+      deadband: 0.2,
     }),
     metric("dc/pv4/current", {
       label: "PV4 Current",
@@ -135,6 +182,7 @@ const metrics = [
       addr: 683,
       scale: 0.1,
       unit: "A",
+      deadband: 0.2,
     }),
     // Derived total PV power. sumOf declares the intent ("every PV-string power")
     // once and resolves it per profile at build time, so models that drop a
@@ -145,6 +193,7 @@ const metrics = [
       role: "pv.total.power",
       unit: "W",
       computeExpr: sumOf({ role: "pv.string.power" }),
+      deadband: 20,
     }),
     metric("day_energy", {
       label: "Daily Production",
@@ -171,6 +220,7 @@ const metrics = [
       role: "battery.soc",
       addr: 588,
       unit: "%",
+      range: { min: 0, max: 100 },
     }),
     metric("battery/power", {
       label: "Battery Power",
@@ -181,6 +231,7 @@ const metrics = [
       scale: 10,
       unit: "W",
       flow: CHARGE_FLOW,
+      deadband: 20,
     }),
     metric("battery/voltage", {
       label: "Battery Voltage",
@@ -189,6 +240,7 @@ const metrics = [
       addr: 587,
       scale: 0.1,
       unit: "V",
+      deadband: 0.1,
     }),
     metric("battery/current", {
       label: "Battery Current",
@@ -199,6 +251,7 @@ const metrics = [
       scale: 0.01,
       unit: "A",
       flow: CHARGE_FLOW,
+      deadband: 0.2,
     }),
     metric("battery/temperature", {
       label: "Battery Temperature",
@@ -208,6 +261,7 @@ const metrics = [
       scale: 0.1,
       offset: -100,
       unit: "°C",
+      deadband: 0.5,
     }),
     metric("battery/daily_charge", {
       label: "Daily Battery Charge",
@@ -253,6 +307,7 @@ const metrics = [
       addr: 625,
       unit: "W",
       flow: GRID_FLOW,
+      deadband: 20,
     }),
     metric("ac/l1/voltage", {
       label: "Grid Voltage L1",
@@ -262,6 +317,7 @@ const metrics = [
       addr: 598,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/l2/voltage", {
       label: "Grid Voltage L2",
@@ -271,6 +327,7 @@ const metrics = [
       addr: 599,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/l3/voltage", {
       label: "Grid Voltage L3",
@@ -280,6 +337,7 @@ const metrics = [
       addr: 600,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/l1/current", {
       label: "Grid Current L1",
@@ -291,6 +349,7 @@ const metrics = [
       scale: 0.01,
       unit: "A",
       flow: GRID_FLOW,
+      deadband: 0.2,
     }),
     metric("ac/l2/current", {
       label: "Grid Current L2",
@@ -302,6 +361,7 @@ const metrics = [
       scale: 0.01,
       unit: "A",
       flow: GRID_FLOW,
+      deadband: 0.2,
     }),
     metric("ac/l3/current", {
       label: "Grid Current L3",
@@ -313,6 +373,7 @@ const metrics = [
       scale: 0.01,
       unit: "A",
       flow: GRID_FLOW,
+      deadband: 0.2,
     }),
     metric("ac/l1/power", {
       label: "Grid Power L1",
@@ -323,6 +384,7 @@ const metrics = [
       addr: 633,
       unit: "W",
       flow: GRID_FLOW,
+      deadband: 20,
     }),
     metric("ac/l2/power", {
       label: "Grid Power L2",
@@ -333,6 +395,7 @@ const metrics = [
       addr: 634,
       unit: "W",
       flow: GRID_FLOW,
+      deadband: 20,
     }),
     metric("ac/l3/power", {
       label: "Grid Power L3",
@@ -343,6 +406,7 @@ const metrics = [
       addr: 635,
       unit: "W",
       flow: GRID_FLOW,
+      deadband: 20,
     }),
     metric("ac/daily_energy_bought", {
       label: "Daily Energy Bought",
@@ -386,6 +450,7 @@ const metrics = [
       role: "load.power",
       addr: 653,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/ups/l1/power", {
       label: "Load Power L1",
@@ -395,6 +460,7 @@ const metrics = [
       type: "S_WORD",
       addr: 650,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/ups/l2/power", {
       label: "Load Power L2",
@@ -404,6 +470,7 @@ const metrics = [
       type: "S_WORD",
       addr: 651,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/ups/l3/power", {
       label: "Load Power L3",
@@ -413,6 +480,7 @@ const metrics = [
       type: "S_WORD",
       addr: 652,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/ups/l1/voltage", {
       label: "Load Voltage L1",
@@ -422,6 +490,7 @@ const metrics = [
       addr: 644,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/ups/l2/voltage", {
       label: "Load Voltage L2",
@@ -431,6 +500,7 @@ const metrics = [
       addr: 645,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/ups/l3/voltage", {
       label: "Load Voltage L3",
@@ -440,6 +510,7 @@ const metrics = [
       addr: 646,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/ups/daily_energy", {
       label: "Daily Load Consumption",
@@ -467,6 +538,7 @@ const metrics = [
       type: "S_WORD",
       addr: 667,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/generator/l1/power", {
       label: "Generator Power L1",
@@ -476,6 +548,7 @@ const metrics = [
       type: "S_WORD",
       addr: 664,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/generator/l2/power", {
       label: "Generator Power L2",
@@ -485,6 +558,7 @@ const metrics = [
       type: "S_WORD",
       addr: 665,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/generator/l3/power", {
       label: "Generator Power L3",
@@ -494,6 +568,7 @@ const metrics = [
       type: "S_WORD",
       addr: 666,
       unit: "W",
+      deadband: 20,
     }),
     metric("ac/generator/l1/voltage", {
       label: "Generator Voltage L1",
@@ -503,6 +578,7 @@ const metrics = [
       addr: 661,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/generator/l2/voltage", {
       label: "Generator Voltage L2",
@@ -512,6 +588,7 @@ const metrics = [
       addr: 662,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/generator/l3/voltage", {
       label: "Generator Voltage L3",
@@ -521,6 +598,7 @@ const metrics = [
       addr: 663,
       scale: 0.1,
       unit: "V",
+      deadband: 1,
     }),
     metric("ac/generator/daily_energy", {
       label: "Daily Generator Production",
@@ -555,6 +633,7 @@ const metrics = [
       scale: 0.1,
       offset: -100,
       unit: "°C",
+      deadband: 0.5,
     }),
     metric("ac/temperature", {
       label: "AC (Inverter) Temperature",
@@ -565,6 +644,7 @@ const metrics = [
       scale: 0.1,
       offset: -100,
       unit: "°C",
+      deadband: 0.5,
     }),
 
     // ---- Writable settings (regs 108-145) ----
@@ -576,6 +656,7 @@ const metrics = [
       addr: 108,
       unit: "A",
       range: { min: 0, max: 50 }, // family ceiling; each model tightens below
+      storage: "series",
     }),
     metric("settings/battery/maximum_discharge_current", {
       label: "Max battery discharge current",
@@ -585,6 +666,7 @@ const metrics = [
       addr: 109,
       unit: "A",
       range: { min: 0, max: 50 }, // family ceiling; each model tightens below
+      storage: "series",
     }),
     metric("settings/battery/maximum_grid_charge_current", {
       label: "Max grid charge current",
@@ -594,6 +676,7 @@ const metrics = [
       addr: 128,
       unit: "A",
       range: { min: 0, max: 50 }, // bounded by the model's max charge current
+      storage: "series",
     }),
     metric("settings/battery/grid_charge", {
       label: "Grid charge",
@@ -626,6 +709,7 @@ const metrics = [
       scale: 10,
       unit: "W",
       range: { min: 0, max: 25000 }, // models tighten to their rated power below
+      storage: "series",
     }),
     metric("settings/solar_sell", {
       label: "Solar sell",
@@ -658,6 +742,7 @@ const metrics = [
           sub: ["ac.ups.total_power"],
         },
       },
+      deadband: 20,
     }),
     // Directional power splits — the signed battery/grid registers broken into
     // positive-only components so the efficiency ratio (below) can sum true
@@ -669,24 +754,32 @@ const metrics = [
       unit: "W",
       group: "grid",
       computeExpr: { clamp: { key: "ac.total_power", min: 0 } },
+      kind: "measurement",
+      deadband: 20,
     }),
     metric("grid/export_power", {
       label: "Grid Export Power",
       unit: "W",
       group: "grid",
       computeExpr: { diff: ["grid.import_power", "ac.total_power"] },
+      kind: "measurement",
+      deadband: 20,
     }),
     metric("battery/discharge_power", {
       label: "Battery Discharge Power",
       unit: "W",
       group: "battery",
       computeExpr: { clamp: { key: "battery.power", min: 0 } },
+      kind: "measurement",
+      deadband: 20,
     }),
     metric("battery/charge_power", {
       label: "Battery Charge Power",
       unit: "W",
       group: "battery",
       computeExpr: { diff: ["battery.discharge_power", "battery.power"] },
+      kind: "measurement",
+      deadband: 20,
     }),
     // Inverter conversion efficiency = useful power delivered ÷ power drawn in,
     // both as positive-only sums so charging / exporting count as OUTPUT rather
@@ -709,6 +802,7 @@ const metrics = [
           scale: 100,
         },
       },
+      deadband: 1,
     }),
   ];
 
