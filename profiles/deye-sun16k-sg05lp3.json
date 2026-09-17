@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "id": "deye-sun16k-sg05lp3",
   "name": "SUN-16K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.3",
+  "version": "1.0.12",
   "metrics": [
     {
       "key": "inverter.status",
@@ -56,6 +56,184 @@
         "via": "modbus",
         "addr": [
           552
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "radiator_temp",
+      "topic": "radiator_temp",
+      "label": "DC Temperature",
+      "unit": "°C",
+      "group": "inverter",
+      "type": "S_WORD",
+      "addresses": [
+        540
+      ],
+      "scale": 0.1,
+      "offset": -100,
+      "access": "r",
+      "role": "inverter.temperature.dc",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          540
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "ac.temperature",
+      "topic": "ac/temperature",
+      "label": "AC Temperature",
+      "unit": "°C",
+      "group": "inverter",
+      "type": "S_WORD",
+      "addresses": [
+        541
+      ],
+      "scale": 0.1,
+      "offset": -100,
+      "access": "r",
+      "role": "inverter.temperature.ac",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          541
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "inverter.warning.1",
+      "topic": "inverter/warning/1",
+      "label": "Warning Word 1",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        553
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          553
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "inverter.warning.2",
+      "topic": "inverter/warning/2",
+      "label": "Warning Word 2",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        554
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          554
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "inverter.fault.1",
+      "topic": "inverter/fault/1",
+      "label": "Fault Word 1",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        555
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          555
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "inverter.fault.2",
+      "topic": "inverter/fault/2",
+      "label": "Fault Word 2",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        556
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          556
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "inverter.fault.3",
+      "topic": "inverter/fault/3",
+      "label": "Fault Word 3",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        557
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          557
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "inverter.fault.4",
+      "topic": "inverter/fault/4",
+      "label": "Fault Word 4",
+      "unit": null,
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        558
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          558
         ],
         "type": "U_WORD"
       }
@@ -194,6 +372,144 @@
         "via": "modbus",
         "addr": [
           679
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv3.power",
+      "topic": "dc/pv3/power",
+      "label": "PV3 Power",
+      "unit": "W",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        674
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "pv.string.power",
+      "index": 3,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          674
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv3.voltage",
+      "topic": "dc/pv3/voltage",
+      "label": "PV3 Voltage",
+      "unit": "V",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        680
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.voltage",
+      "index": 3,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          680
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv3.current",
+      "topic": "dc/pv3/current",
+      "label": "PV3 Current",
+      "unit": "A",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        681
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.current",
+      "index": 3,
+      "deadband": 0.2,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          681
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv4.power",
+      "topic": "dc/pv4/power",
+      "label": "PV4 Power",
+      "unit": "W",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        675
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "pv.string.power",
+      "index": 4,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          675
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv4.voltage",
+      "topic": "dc/pv4/voltage",
+      "label": "PV4 Voltage",
+      "unit": "V",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        682
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.voltage",
+      "index": 4,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          682
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "dc.pv4.current",
+      "topic": "dc/pv4/current",
+      "label": "PV4 Current",
+      "unit": "A",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [
+        683
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "pv.string.current",
+      "index": 4,
+      "deadband": 0.2,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          683
         ],
         "type": "U_WORD"
       }
@@ -742,280 +1058,159 @@
       }
     },
     {
-      "key": "radiator_temp",
-      "topic": "radiator_temp",
-      "label": "DC Temperature",
-      "unit": "°C",
+      "key": "ac.l1.ct.internal_current",
+      "topic": "ac/l1/ct/internal_current",
+      "label": "Grid Internal CT Current L1",
+      "unit": "A",
       "group": "inverter",
       "type": "S_WORD",
       "addresses": [
-        540
+        610
       ],
-      "scale": 0.1,
-      "offset": -100,
+      "scale": 0.01,
       "access": "r",
-      "role": "inverter.temperature.dc",
-      "deadband": 0.5,
+      "kind": "measurement",
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
       "binding": {
         "via": "modbus",
         "addr": [
-          540
+          610
         ],
         "type": "S_WORD"
       }
     },
     {
-      "key": "ac.temperature",
-      "topic": "ac/temperature",
-      "label": "AC Temperature",
-      "unit": "°C",
+      "key": "ac.l1.ct.external_current",
+      "topic": "ac/l1/ct/external_current",
+      "label": "Grid External CT Current L1",
+      "unit": "A",
       "group": "inverter",
       "type": "S_WORD",
       "addresses": [
-        541
+        613
       ],
-      "scale": 0.1,
-      "offset": -100,
+      "scale": 0.01,
       "access": "r",
-      "role": "inverter.temperature.ac",
-      "deadband": 0.5,
+      "kind": "measurement",
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
       "binding": {
         "via": "modbus",
         "addr": [
-          541
+          613
         ],
         "type": "S_WORD"
       }
     },
     {
-      "key": "dc.total_power",
-      "topic": "dc/total_power",
-      "label": "DC Total Power",
-      "unit": "W",
+      "key": "ac.l2.ct.internal_current",
+      "topic": "ac/l2/ct/internal_current",
+      "label": "Grid Internal CT Current L2",
+      "unit": "A",
       "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
+      "type": "S_WORD",
+      "addresses": [
+        611
+      ],
+      "scale": 0.01,
       "access": "r",
-      "role": "pv.total.power",
-      "deadband": 20,
-      "binding": {
-        "via": "compute",
-        "expr": {
-          "sum": [
-            "dc.pv1.power",
-            "dc.pv2.power"
-          ]
-        }
+      "kind": "measurement",
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
       },
-      "computeExpr": {
-        "sum": [
-          "dc.pv1.power",
-          "dc.pv2.power"
-        ]
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          611
+        ],
+        "type": "S_WORD"
       }
     },
     {
-      "key": "inverter.power",
-      "topic": "inverter/power",
-      "label": "Inverter Self-Consumption",
-      "unit": "W",
+      "key": "ac.l2.ct.external_current",
+      "topic": "ac/l2/ct/external_current",
+      "label": "Grid External CT Current L2",
+      "unit": "A",
       "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
+      "type": "S_WORD",
+      "addresses": [
+        614
+      ],
+      "scale": 0.01,
       "access": "r",
-      "computeExpr": {
-        "combine": {
-          "add": [
-            "dc.total_power",
-            "battery.power",
-            "ac.total_power"
-          ],
-          "sub": [
-            "ac.ups.total_power"
-          ]
-        }
-      },
-      "role": "inverter.power",
-      "deadband": 20,
-      "binding": {
-        "via": "compute",
-        "expr": {
-          "combine": {
-            "add": [
-              "dc.total_power",
-              "battery.power",
-              "ac.total_power"
-            ],
-            "sub": [
-              "ac.ups.total_power"
-            ]
-          }
-        }
-      }
-    },
-    {
-      "key": "grid.import_power",
-      "topic": "grid/import_power",
-      "label": "Grid Import Power",
-      "unit": "W",
-      "group": "grid",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
-      "access": "r",
-      "computeExpr": {
-        "clamp": {
-          "key": "ac.total_power",
-          "min": 0
-        }
-      },
       "kind": "measurement",
-      "deadband": 20,
-      "binding": {
-        "via": "compute",
-        "expr": {
-          "clamp": {
-            "key": "ac.total_power",
-            "min": 0
-          }
-        }
-      }
-    },
-    {
-      "key": "grid.export_power",
-      "topic": "grid/export_power",
-      "label": "Grid Export Power",
-      "unit": "W",
-      "group": "grid",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
-      "access": "r",
-      "computeExpr": {
-        "diff": [
-          "grid.import_power",
-          "ac.total_power"
-        ]
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
       },
-      "kind": "measurement",
-      "deadband": 20,
       "binding": {
-        "via": "compute",
-        "expr": {
-          "diff": [
-            "grid.import_power",
-            "ac.total_power"
-          ]
-        }
+        "via": "modbus",
+        "addr": [
+          614
+        ],
+        "type": "S_WORD"
       }
     },
     {
-      "key": "battery.discharge_power",
-      "topic": "battery/discharge_power",
-      "label": "Battery Discharge Power",
-      "unit": "W",
-      "group": "battery",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
-      "access": "r",
-      "computeExpr": {
-        "clamp": {
-          "key": "battery.power",
-          "min": 0
-        }
-      },
-      "kind": "measurement",
-      "deadband": 20,
-      "binding": {
-        "via": "compute",
-        "expr": {
-          "clamp": {
-            "key": "battery.power",
-            "min": 0
-          }
-        }
-      }
-    },
-    {
-      "key": "battery.charge_power",
-      "topic": "battery/charge_power",
-      "label": "Battery Charge Power",
-      "unit": "W",
-      "group": "battery",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
-      "access": "r",
-      "computeExpr": {
-        "diff": [
-          "battery.discharge_power",
-          "battery.power"
-        ]
-      },
-      "kind": "measurement",
-      "deadband": 20,
-      "binding": {
-        "via": "compute",
-        "expr": {
-          "diff": [
-            "battery.discharge_power",
-            "battery.power"
-          ]
-        }
-      }
-    },
-    {
-      "key": "inverter.efficiency",
-      "topic": "inverter/efficiency",
-      "label": "Inverter Efficiency",
-      "unit": "%",
+      "key": "ac.l3.ct.internal_current",
+      "topic": "ac/l3/ct/internal_current",
+      "label": "Grid Internal CT Current L3",
+      "unit": "A",
       "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [],
-      "scale": 1,
+      "type": "S_WORD",
+      "addresses": [
+        612
+      ],
+      "scale": 0.01,
       "access": "r",
-      "computeExpr": {
-        "ratio": {
-          "num": [
-            "ac.ups.total_power",
-            "battery.charge_power",
-            "grid.export_power"
-          ],
-          "den": [
-            "dc.total_power",
-            "battery.discharge_power",
-            "grid.import_power"
-          ],
-          "scale": 100
-        }
-      },
-      "role": "inverter.efficiency",
       "kind": "measurement",
-      "deadband": 1,
-      "range": {
-        "min": 0,
-        "max": 100
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
       },
       "binding": {
-        "via": "compute",
-        "expr": {
-          "ratio": {
-            "num": [
-              "ac.ups.total_power",
-              "battery.charge_power",
-              "grid.export_power"
-            ],
-            "den": [
-              "dc.total_power",
-              "battery.discharge_power",
-              "grid.import_power"
-            ],
-            "scale": 100
-          }
-        }
+        "via": "modbus",
+        "addr": [
+          612
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "ac.l3.ct.external_current",
+      "topic": "ac/l3/ct/external_current",
+      "label": "Grid External CT Current L3",
+      "unit": "A",
+      "group": "inverter",
+      "type": "S_WORD",
+      "addresses": [
+        615
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          615
+        ],
+        "type": "S_WORD"
       }
     },
     {
@@ -1312,6 +1507,596 @@
       }
     },
     {
+      "key": "battery.2.soc",
+      "topic": "battery/2/soc",
+      "label": "Battery 2 SoC",
+      "unit": "%",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        589
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          589
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "battery.2.voltage",
+      "topic": "battery/2/voltage",
+      "label": "Battery 2 Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        593
+      ],
+      "scale": 0.01,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 0.1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          593
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "battery.2.power",
+      "topic": "battery/2/power",
+      "label": "Battery 2 Power",
+      "unit": "W",
+      "group": "battery",
+      "type": "S_WORD",
+      "addresses": [
+        595
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 20,
+      "flow": {
+        "positive": "Discharging",
+        "negative": "Charging"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          595
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "bms.device_type",
+      "topic": "bms/device_type",
+      "label": "BMS Device Type",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10000
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10000
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.protocol_version",
+      "topic": "bms/protocol_version",
+      "label": "BMS Protocol Version",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10001
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10001
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.pack_count",
+      "topic": "bms/pack_count",
+      "label": "BMS Pack Count",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10002
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10002
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.voltage",
+      "topic": "bms/voltage",
+      "label": "BMS Battery Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10003
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 0.1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10003
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.current",
+      "topic": "bms/current",
+      "label": "BMS Battery Current",
+      "unit": "A",
+      "group": "battery",
+      "type": "S_WORD",
+      "addresses": [
+        10004
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 0.2,
+      "flow": {
+        "positive": "Discharging",
+        "negative": "Charging"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10004
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "bms.soc",
+      "topic": "bms/soc",
+      "label": "BMS State of Charge",
+      "unit": "%",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10005
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10005
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.soh",
+      "topic": "bms/soh",
+      "label": "BMS State of Health",
+      "unit": "%",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10006
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10006
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.remaining_capacity",
+      "topic": "bms/remaining_capacity",
+      "label": "BMS Remaining Capacity",
+      "unit": "Ah",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10007
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10007
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.temperature",
+      "topic": "bms/temperature",
+      "label": "BMS Battery Temperature",
+      "unit": "°C",
+      "group": "battery",
+      "type": "S_WORD",
+      "addresses": [
+        10008
+      ],
+      "scale": 0.1,
+      "offset": 0,
+      "access": "r",
+      "kind": "measurement",
+      "deadband": 0.5,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10008
+        ],
+        "type": "S_WORD"
+      }
+    },
+    {
+      "key": "bms.charge_voltage",
+      "topic": "bms/charge_voltage",
+      "label": "BMS Charge Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10009
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10009
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.discharge_voltage",
+      "topic": "bms/discharge_voltage",
+      "label": "BMS Discharge Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10010
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10010
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.charge_end_voltage",
+      "topic": "bms/charge_end_voltage",
+      "label": "BMS Charge Cut-off Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10011
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10011
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.discharge_end_voltage",
+      "topic": "bms/discharge_end_voltage",
+      "label": "BMS Discharge Cut-off Voltage",
+      "unit": "V",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10012
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10012
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.charge_limit_current",
+      "topic": "bms/charge_limit_current",
+      "label": "BMS Charge Current Limit",
+      "unit": "A",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10013
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10013
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.discharge_limit_current",
+      "topic": "bms/discharge_limit_current",
+      "label": "BMS Discharge Current Limit",
+      "unit": "A",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10014
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10014
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.off_grid_charge_limit_current",
+      "topic": "bms/off_grid_charge_limit_current",
+      "label": "BMS Off-grid Charge Current Limit",
+      "unit": "A",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10015
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10015
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.off_grid_discharge_limit_current",
+      "topic": "bms/off_grid_discharge_limit_current",
+      "label": "BMS Off-grid Discharge Current Limit",
+      "unit": "A",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10016
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "measurement",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10016
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.force_charge_flag",
+      "topic": "bms/force_charge_flag",
+      "label": "BMS Force Charge Flag",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10017
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10017
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.check_soc_flag",
+      "topic": "bms/check_soc_flag",
+      "label": "BMS SoC Calibration Flag",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10018
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10018
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.fault.1",
+      "topic": "bms/fault/1",
+      "label": "BMS Fault Word 1",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10019
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10019
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.fault.2",
+      "topic": "bms/fault/2",
+      "label": "BMS Fault Word 2",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10020
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10020
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.alarm.1",
+      "topic": "bms/alarm/1",
+      "label": "BMS Alarm Word 1",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10021
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10021
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "bms.alarm.2",
+      "topic": "bms/alarm/2",
+      "label": "BMS Alarm Word 2",
+      "unit": null,
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [
+        10022
+      ],
+      "scale": 1,
+      "access": "r",
+      "kind": "status",
+      "storage": "config",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          10022
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
       "key": "ac.generator.a.voltage",
       "topic": "ac/generator/a/voltage",
       "label": "Gen port A Voltage",
@@ -1493,6 +2278,277 @@
       }
     },
     {
+      "key": "ac.generator.total_energy",
+      "topic": "ac/generator/total_energy",
+      "label": "Total Generator Production",
+      "unit": "kWh",
+      "group": "generator",
+      "type": "U_DWORD",
+      "addresses": [
+        537,
+        538
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "generator.energy.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          537,
+          538
+        ],
+        "type": "U_DWORD"
+      }
+    },
+    {
+      "key": "ac.generator.daily_runtime",
+      "topic": "ac/generator/daily_runtime",
+      "label": "Generator Run Time Today",
+      "unit": "h",
+      "group": "generator",
+      "type": "U_WORD",
+      "addresses": [
+        539
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "cumulative",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          539
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.generator.total_runtime",
+      "topic": "ac/generator/total_runtime",
+      "label": "Total Generator Run Time",
+      "unit": "h",
+      "group": "generator",
+      "type": "U_DWORD",
+      "addresses": [
+        512,
+        513
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "kind": "cumulative",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          512,
+          513
+        ],
+        "type": "U_DWORD"
+      }
+    },
+    {
+      "key": "ac.ups.total_power",
+      "topic": "ac/ups/total_power",
+      "label": "Total Load Power",
+      "unit": "W",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        653
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.power",
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          653
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l1.power",
+      "topic": "ac/ups/l1/power",
+      "label": "Load L1 Power",
+      "unit": "W",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        650
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 1,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          650
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l2.power",
+      "topic": "ac/ups/l2/power",
+      "label": "Load L2 Power",
+      "unit": "W",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        651
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 2,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          651
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l3.power",
+      "topic": "ac/ups/l3/power",
+      "label": "Load L3 Power",
+      "unit": "W",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        652
+      ],
+      "scale": 1,
+      "access": "r",
+      "role": "load.phase.power",
+      "index": 3,
+      "deadband": 20,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          652
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l1.voltage",
+      "topic": "ac/ups/l1/voltage",
+      "label": "Load Voltage L1",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        644
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 1,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          644
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l2.voltage",
+      "topic": "ac/ups/l2/voltage",
+      "label": "Load Voltage L2",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        645
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 2,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          645
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.l3.voltage",
+      "topic": "ac/ups/l3/voltage",
+      "label": "Load Voltage L3",
+      "unit": "V",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        646
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.phase.voltage",
+      "index": 3,
+      "deadband": 1,
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          646
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.daily_energy",
+      "topic": "ac/ups/daily_energy",
+      "label": "Daily Load Consumption",
+      "unit": "kWh",
+      "group": "load",
+      "type": "U_WORD",
+      "addresses": [
+        526
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.energy.today",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          526
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "ac.ups.total_energy",
+      "topic": "ac/ups/total_energy",
+      "label": "Total Load Consumption",
+      "unit": "kWh",
+      "group": "load",
+      "type": "U_DWORD",
+      "addresses": [
+        527,
+        528
+      ],
+      "scale": 0.1,
+      "access": "r",
+      "role": "load.energy.total",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          527,
+          528
+        ],
+        "type": "U_DWORD"
+      }
+    },
+    {
       "key": "settings.battery.maximum_charge_current",
       "topic": "settings/battery/maximum_charge_current",
       "label": "Max battery charge current",
@@ -1660,6 +2716,253 @@
         "via": "modbus",
         "addr": [
           145
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.capacity",
+      "topic": "settings/battery/capacity",
+      "label": "Battery Capacity",
+      "unit": "Ah",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        102
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 2000
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          102
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.tempco",
+      "topic": "settings/battery/tempco",
+      "label": "Battery Temperature Compensation",
+      "unit": "mV/°C",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        107
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 50
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          107
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.charge_efficiency",
+      "topic": "settings/battery/charge_efficiency",
+      "label": "Battery Charge Efficiency",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        114
+      ],
+      "scale": 0.1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          114
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.shutdown_soc",
+      "topic": "settings/battery/shutdown_soc",
+      "label": "Battery Shutdown SoC",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        115
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          115
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.restart_soc",
+      "topic": "settings/battery/restart_soc",
+      "label": "Battery Restart SoC",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        116
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          116
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.low_soc",
+      "topic": "settings/battery/low_soc",
+      "label": "Battery Low SoC Warning",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        117
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          117
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.generator_charge_start_soc",
+      "topic": "settings/battery/generator_charge_start_soc",
+      "label": "Generator Charge Start SoC",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        124
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          124
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.generator_charge_current",
+      "topic": "settings/battery/generator_charge_current",
+      "label": "Generator Charge Current",
+      "unit": "A",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        125
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "storage": "series",
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          125
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.grid_charge_start_soc",
+      "topic": "settings/battery/grid_charge_start_soc",
+      "label": "Grid Charge Start SoC",
+      "unit": "%",
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        127
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "range": {
+        "min": 0,
+        "max": 100
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          127
+        ],
+        "type": "U_WORD"
+      }
+    },
+    {
+      "key": "settings.battery.generator_charge",
+      "topic": "settings/battery/generator_charge",
+      "label": "Generator Charge enabled",
+      "unit": null,
+      "group": "settings",
+      "type": "U_WORD",
+      "addresses": [
+        129
+      ],
+      "scale": 1,
+      "access": "rw",
+      "kind": "setting",
+      "enumLabels": {
+        "0": "Off",
+        "1": "On"
+      },
+      "binding": {
+        "via": "modbus",
+        "addr": [
+          129
         ],
         "type": "U_WORD"
       }
@@ -2359,207 +3662,238 @@
       }
     },
     {
-      "key": "ac.ups.total_power",
-      "topic": "ac/ups/total_power",
-      "label": "Total Load Power",
+      "key": "dc.total_power",
+      "topic": "dc/total_power",
+      "label": "DC Total Power",
       "unit": "W",
-      "group": "load",
+      "group": "inverter",
       "type": "U_WORD",
-      "addresses": [
-        653
-      ],
+      "addresses": [],
       "scale": 1,
       "access": "r",
-      "role": "load.power",
+      "role": "pv.total.power",
       "deadband": 20,
       "binding": {
-        "via": "modbus",
-        "addr": [
-          653
-        ],
-        "type": "U_WORD"
+        "via": "compute",
+        "expr": {
+          "sum": [
+            "dc.pv1.power",
+            "dc.pv2.power",
+            "dc.pv3.power",
+            "dc.pv4.power"
+          ]
+        }
+      },
+      "computeExpr": {
+        "sum": [
+          "dc.pv1.power",
+          "dc.pv2.power",
+          "dc.pv3.power",
+          "dc.pv4.power"
+        ]
       }
     },
     {
-      "key": "ac.ups.l1.power",
-      "topic": "ac/ups/l1/power",
-      "label": "Load L1 Power",
+      "key": "inverter.power",
+      "topic": "inverter/power",
+      "label": "Inverter Self-Consumption",
       "unit": "W",
-      "group": "load",
+      "group": "inverter",
       "type": "U_WORD",
-      "addresses": [
-        650
-      ],
+      "addresses": [],
       "scale": 1,
       "access": "r",
-      "role": "load.phase.power",
-      "index": 1,
+      "computeExpr": {
+        "combine": {
+          "add": [
+            "dc.total_power",
+            "battery.power",
+            "ac.total_power"
+          ],
+          "sub": [
+            "ac.ups.total_power"
+          ]
+        }
+      },
+      "role": "inverter.power",
       "deadband": 20,
       "binding": {
-        "via": "modbus",
-        "addr": [
-          650
-        ],
-        "type": "U_WORD"
+        "via": "compute",
+        "expr": {
+          "combine": {
+            "add": [
+              "dc.total_power",
+              "battery.power",
+              "ac.total_power"
+            ],
+            "sub": [
+              "ac.ups.total_power"
+            ]
+          }
+        }
       }
     },
     {
-      "key": "ac.ups.l2.power",
-      "topic": "ac/ups/l2/power",
-      "label": "Load L2 Power",
+      "key": "grid.import_power",
+      "topic": "grid/import_power",
+      "label": "Grid Import Power",
       "unit": "W",
-      "group": "load",
+      "group": "grid",
       "type": "U_WORD",
-      "addresses": [
-        651
-      ],
+      "addresses": [],
       "scale": 1,
       "access": "r",
-      "role": "load.phase.power",
-      "index": 2,
+      "computeExpr": {
+        "clamp": {
+          "key": "ac.total_power",
+          "min": 0
+        }
+      },
+      "kind": "measurement",
       "deadband": 20,
       "binding": {
-        "via": "modbus",
-        "addr": [
-          651
-        ],
-        "type": "U_WORD"
+        "via": "compute",
+        "expr": {
+          "clamp": {
+            "key": "ac.total_power",
+            "min": 0
+          }
+        }
       }
     },
     {
-      "key": "ac.ups.l3.power",
-      "topic": "ac/ups/l3/power",
-      "label": "Load L3 Power",
+      "key": "grid.export_power",
+      "topic": "grid/export_power",
+      "label": "Grid Export Power",
       "unit": "W",
-      "group": "load",
+      "group": "grid",
       "type": "U_WORD",
-      "addresses": [
-        652
-      ],
+      "addresses": [],
       "scale": 1,
       "access": "r",
-      "role": "load.phase.power",
-      "index": 3,
+      "computeExpr": {
+        "diff": [
+          "grid.import_power",
+          "ac.total_power"
+        ]
+      },
+      "kind": "measurement",
       "deadband": 20,
       "binding": {
-        "via": "modbus",
-        "addr": [
-          652
-        ],
-        "type": "U_WORD"
+        "via": "compute",
+        "expr": {
+          "diff": [
+            "grid.import_power",
+            "ac.total_power"
+          ]
+        }
       }
     },
     {
-      "key": "ac.ups.l1.voltage",
-      "topic": "ac/ups/l1/voltage",
-      "label": "Load Voltage L1",
-      "unit": "V",
-      "group": "load",
+      "key": "battery.discharge_power",
+      "topic": "battery/discharge_power",
+      "label": "Battery Discharge Power",
+      "unit": "W",
+      "group": "battery",
       "type": "U_WORD",
-      "addresses": [
-        644
-      ],
-      "scale": 0.1,
+      "addresses": [],
+      "scale": 1,
       "access": "r",
-      "role": "load.phase.voltage",
-      "index": 1,
+      "computeExpr": {
+        "clamp": {
+          "key": "battery.power",
+          "min": 0
+        }
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "clamp": {
+            "key": "battery.power",
+            "min": 0
+          }
+        }
+      }
+    },
+    {
+      "key": "battery.charge_power",
+      "topic": "battery/charge_power",
+      "label": "Battery Charge Power",
+      "unit": "W",
+      "group": "battery",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "diff": [
+          "battery.discharge_power",
+          "battery.power"
+        ]
+      },
+      "kind": "measurement",
+      "deadband": 20,
+      "binding": {
+        "via": "compute",
+        "expr": {
+          "diff": [
+            "battery.discharge_power",
+            "battery.power"
+          ]
+        }
+      }
+    },
+    {
+      "key": "inverter.efficiency",
+      "topic": "inverter/efficiency",
+      "label": "Inverter Efficiency",
+      "unit": "%",
+      "group": "inverter",
+      "type": "U_WORD",
+      "addresses": [],
+      "scale": 1,
+      "access": "r",
+      "computeExpr": {
+        "ratio": {
+          "num": [
+            "ac.ups.total_power",
+            "battery.charge_power",
+            "grid.export_power"
+          ],
+          "den": [
+            "dc.total_power",
+            "battery.discharge_power",
+            "grid.import_power"
+          ],
+          "scale": 100
+        }
+      },
+      "role": "inverter.efficiency",
+      "kind": "measurement",
       "deadband": 1,
+      "range": {
+        "min": 0,
+        "max": 100
+      },
       "binding": {
-        "via": "modbus",
-        "addr": [
-          644
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "ac.ups.l2.voltage",
-      "topic": "ac/ups/l2/voltage",
-      "label": "Load Voltage L2",
-      "unit": "V",
-      "group": "load",
-      "type": "U_WORD",
-      "addresses": [
-        645
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "load.phase.voltage",
-      "index": 2,
-      "deadband": 1,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          645
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "ac.ups.l3.voltage",
-      "topic": "ac/ups/l3/voltage",
-      "label": "Load Voltage L3",
-      "unit": "V",
-      "group": "load",
-      "type": "U_WORD",
-      "addresses": [
-        646
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "load.phase.voltage",
-      "index": 3,
-      "deadband": 1,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          646
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "ac.ups.daily_energy",
-      "topic": "ac/ups/daily_energy",
-      "label": "Daily Load Consumption",
-      "unit": "kWh",
-      "group": "load",
-      "type": "U_WORD",
-      "addresses": [
-        526
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "load.energy.today",
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          526
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "ac.ups.total_energy",
-      "topic": "ac/ups/total_energy",
-      "label": "Total Load Consumption",
-      "unit": "kWh",
-      "group": "load",
-      "type": "U_DWORD",
-      "addresses": [
-        527,
-        528
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "load.energy.total",
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          527,
-          528
-        ],
-        "type": "U_DWORD"
+        "via": "compute",
+        "expr": {
+          "ratio": {
+            "num": [
+              "ac.ups.total_power",
+              "battery.charge_power",
+              "grid.export_power"
+            ],
+            "den": [
+              "dc.total_power",
+              "battery.discharge_power",
+              "grid.import_power"
+            ],
+            "scale": 100
+          }
+        }
       }
     },
     {

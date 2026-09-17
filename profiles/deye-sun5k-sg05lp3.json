@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
-  "id": "deye-sun20k-sg05lp3",
-  "name": "SUN-20K-SG05LP3-EU-SM2",
+  "id": "deye-sun5k-sg05lp3",
+  "name": "SUN-5K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.12",
+  "version": "1.0.7",
   "metrics": [
     {
       "key": "inverter.status",
@@ -372,144 +372,6 @@
         "via": "modbus",
         "addr": [
           679
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv3.power",
-      "topic": "dc/pv3/power",
-      "label": "PV3 Power",
-      "unit": "W",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        674
-      ],
-      "scale": 1,
-      "access": "r",
-      "role": "pv.string.power",
-      "index": 3,
-      "deadband": 20,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          674
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv3.voltage",
-      "topic": "dc/pv3/voltage",
-      "label": "PV3 Voltage",
-      "unit": "V",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        680
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "pv.string.voltage",
-      "index": 3,
-      "deadband": 1,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          680
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv3.current",
-      "topic": "dc/pv3/current",
-      "label": "PV3 Current",
-      "unit": "A",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        681
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "pv.string.current",
-      "index": 3,
-      "deadband": 0.2,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          681
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv4.power",
-      "topic": "dc/pv4/power",
-      "label": "PV4 Power",
-      "unit": "W",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        675
-      ],
-      "scale": 1,
-      "access": "r",
-      "role": "pv.string.power",
-      "index": 4,
-      "deadband": 20,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          675
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv4.voltage",
-      "topic": "dc/pv4/voltage",
-      "label": "PV4 Voltage",
-      "unit": "V",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        682
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "pv.string.voltage",
-      "index": 4,
-      "deadband": 1,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          682
-        ],
-        "type": "U_WORD"
-      }
-    },
-    {
-      "key": "dc.pv4.current",
-      "topic": "dc/pv4/current",
-      "label": "PV4 Current",
-      "unit": "A",
-      "group": "inverter",
-      "type": "U_WORD",
-      "addresses": [
-        683
-      ],
-      "scale": 0.1,
-      "access": "r",
-      "role": "pv.string.current",
-      "index": 4,
-      "deadband": 0.2,
-      "binding": {
-        "via": "modbus",
-        "addr": [
-          683
         ],
         "type": "U_WORD"
       }
@@ -2564,7 +2426,7 @@
       "storage": "series",
       "range": {
         "min": 0,
-        "max": 350
+        "max": 120
       },
       "binding": {
         "via": "modbus",
@@ -2590,7 +2452,7 @@
       "storage": "series",
       "range": {
         "min": 0,
-        "max": 350
+        "max": 120
       },
       "binding": {
         "via": "modbus",
@@ -3678,18 +3540,14 @@
         "expr": {
           "sum": [
             "dc.pv1.power",
-            "dc.pv2.power",
-            "dc.pv3.power",
-            "dc.pv4.power"
+            "dc.pv2.power"
           ]
         }
       },
       "computeExpr": {
         "sum": [
           "dc.pv1.power",
-          "dc.pv2.power",
-          "dc.pv3.power",
-          "dc.pv4.power"
+          "dc.pv2.power"
         ]
       }
     },

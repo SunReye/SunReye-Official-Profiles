@@ -1,9 +1,9 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "id": "deye-sg01hp3-12k",
   "name": "SUN-12K-SG01HP3",
   "manufacturer": "Deye",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "metrics": [
     {
       "key": "dc.pv1.power",
