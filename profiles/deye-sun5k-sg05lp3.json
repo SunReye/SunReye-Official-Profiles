@@ -3,7 +3,7 @@
   "id": "deye-sun5k-sg05lp3",
   "name": "SUN-5K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "metrics": [
     {
       "key": "inverter.status",
@@ -1695,7 +1695,7 @@
       "label": "Total Load Power",
       "unit": "W",
       "group": "load",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         653
       ],
@@ -1708,7 +1708,7 @@
         "addr": [
           653
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
@@ -1717,7 +1717,7 @@
       "label": "Load L1 Power",
       "unit": "W",
       "group": "load",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         650
       ],
@@ -1731,7 +1731,7 @@
         "addr": [
           650
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
@@ -1740,7 +1740,7 @@
       "label": "Load L2 Power",
       "unit": "W",
       "group": "load",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         651
       ],
@@ -1754,7 +1754,7 @@
         "addr": [
           651
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
@@ -1763,7 +1763,7 @@
       "label": "Load L3 Power",
       "unit": "W",
       "group": "load",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         652
       ],
@@ -1777,7 +1777,7 @@
         "addr": [
           652
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
