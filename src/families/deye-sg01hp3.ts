@@ -448,6 +448,7 @@ const metrics = [
       label: "Total Load Power",
       group: "load",
       role: "load.power",
+      type: "S_WORD",
       addr: 653,
       unit: "W",
       deadband: 20,

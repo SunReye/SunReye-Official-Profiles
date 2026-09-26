@@ -3,7 +3,7 @@
   "id": "deye-sg01hp3-5k",
   "name": "SUN-5K-SG01HP3",
   "manufacturer": "Deye",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "metrics": [
     {
       "key": "dc.pv1.power",
@@ -776,7 +776,7 @@
       "label": "Total Load Power",
       "unit": "W",
       "group": "load",
-      "type": "U_WORD",
+      "type": "S_WORD",
       "addresses": [
         653
       ],
@@ -789,7 +789,7 @@
         "addr": [
           653
         ],
-        "type": "U_WORD"
+        "type": "S_WORD"
       }
     },
     {
