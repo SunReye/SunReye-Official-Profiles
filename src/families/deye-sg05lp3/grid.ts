@@ -49,8 +49,7 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 604,
-    role: "grid.phase.power",
-    index: 1,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 20,
   }),
@@ -60,8 +59,7 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 605,
-    role: "grid.phase.power",
-    index: 2,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 20,
   }),
@@ -71,8 +69,7 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 606,
-    role: "grid.phase.power",
-    index: 3,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 20,
   }),
@@ -91,7 +88,9 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 616,
-    kind: "measurement",
+    role: "grid.phase.power",
+    index: 1,
+    flow: GRID_FLOW,
     deadband: 20,
   }),
   metric("ac/l2/ct/external", {
@@ -100,7 +99,9 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 617,
-    kind: "measurement",
+    role: "grid.phase.power",
+    index: 2,
+    flow: GRID_FLOW,
     deadband: 20,
   }),
   metric("ac/l3/ct/external", {
@@ -109,7 +110,9 @@ export const grid = [
     group: "inverter",
     type: "S_WORD",
     addr: 618,
-    kind: "measurement",
+    role: "grid.phase.power",
+    index: 3,
+    flow: GRID_FLOW,
     deadband: 20,
   }),
   metric("ac/daily_energy_bought", {
@@ -147,38 +150,35 @@ export const grid = [
     role: "grid.energy.exported.total",
   }),
   metric("ac/l1/current", {
-    label: "Current L1",
+    label: "Inverter Current L1",
     unit: "A",
     group: "inverter",
     type: "S_WORD",
     addr: 630,
     scale: 0.01,
-    role: "grid.phase.current",
-    index: 1,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 0.2,
   }),
   metric("ac/l2/current", {
-    label: "Current L2",
+    label: "Inverter Current L2",
     unit: "A",
     group: "inverter",
     type: "S_WORD",
     addr: 631,
     scale: 0.01,
-    role: "grid.phase.current",
-    index: 2,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 0.2,
   }),
   metric("ac/l3/current", {
-    label: "Current L3",
+    label: "Inverter Current L3",
     unit: "A",
     group: "inverter",
     type: "S_WORD",
     addr: 632,
     scale: 0.01,
-    role: "grid.phase.current",
-    index: 3,
+    kind: "measurement",
     flow: GRID_FLOW,
     deadband: 0.2,
   }),
@@ -214,7 +214,12 @@ export const grid = [
   // Per-phase CT currents, the current-side companions to the CT powers above:
   // 610-612 internal CT (电网侧内侧电流, doc v105.4), 613-615 external CT
   // (电网外置-电流 — the doc's English "Out-of-grid" is a mistranslation; the
-  // Chinese and the 616-618 pairing both say external CT). Signed, 0.01 A.
+  // Chinese and the 616-618 pairing both say external CT). 0.01 A. Declared
+  // S_WORD, but a live SG05LP3 reads every one positive while exporting, so they
+  // carry no direction label. The external CT is the grid connection point: it
+  // owns grid.phase.power / grid.phase.current, as 625 sums it. The internal CT
+  // and 630-635 sit on the inverter's AC port and differ by whatever is on the
+  // house net in between (a micro-inverter, a load).
   metric("ac/l1/ct/internal_current", {
     label: "Grid Internal CT Current L1",
     kind: "measurement",
@@ -228,13 +233,13 @@ export const grid = [
   }),
   metric("ac/l1/ct/external_current", {
     label: "Grid External CT Current L1",
-    kind: "measurement",
     unit: "A",
+    role: "grid.phase.current",
+    index: 1,
     group: "inverter",
     type: "S_WORD",
     addr: 613,
     scale: 0.01,
-    flow: GRID_FLOW,
     deadband: 0.2,
   }),
   metric("ac/l2/ct/internal_current", {
@@ -250,13 +255,13 @@ export const grid = [
   }),
   metric("ac/l2/ct/external_current", {
     label: "Grid External CT Current L2",
-    kind: "measurement",
     unit: "A",
+    role: "grid.phase.current",
+    index: 2,
     group: "inverter",
     type: "S_WORD",
     addr: 614,
     scale: 0.01,
-    flow: GRID_FLOW,
     deadband: 0.2,
   }),
   metric("ac/l3/ct/internal_current", {
@@ -272,13 +277,13 @@ export const grid = [
   }),
   metric("ac/l3/ct/external_current", {
     label: "Grid External CT Current L3",
-    kind: "measurement",
     unit: "A",
+    role: "grid.phase.current",
+    index: 3,
     group: "inverter",
     type: "S_WORD",
     addr: 615,
     scale: 0.01,
-    flow: GRID_FLOW,
     deadband: 0.2,
   }),
 ];

@@ -3,7 +3,7 @@
   "id": "deye-sun8k-sg05lp3",
   "name": "SUN-8K-SG05LP3-EU-SM2",
   "manufacturer": "Deye",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "metrics": [
     {
       "key": "inverter.status",
@@ -527,8 +527,7 @@
       ],
       "scale": 1,
       "access": "r",
-      "role": "grid.phase.power",
-      "index": 1,
+      "kind": "measurement",
       "deadband": 20,
       "flow": {
         "positive": "Importing",
@@ -554,8 +553,7 @@
       ],
       "scale": 1,
       "access": "r",
-      "role": "grid.phase.power",
-      "index": 2,
+      "kind": "measurement",
       "deadband": 20,
       "flow": {
         "positive": "Importing",
@@ -581,8 +579,7 @@
       ],
       "scale": 1,
       "access": "r",
-      "role": "grid.phase.power",
-      "index": 3,
+      "kind": "measurement",
       "deadband": 20,
       "flow": {
         "positive": "Importing",
@@ -630,8 +627,13 @@
       ],
       "scale": 1,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.power",
+      "index": 1,
       "deadband": 20,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
       "binding": {
         "via": "modbus",
         "addr": [
@@ -652,8 +654,13 @@
       ],
       "scale": 1,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.power",
+      "index": 2,
       "deadband": 20,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
       "binding": {
         "via": "modbus",
         "addr": [
@@ -674,8 +681,13 @@
       ],
       "scale": 1,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.power",
+      "index": 3,
       "deadband": 20,
+      "flow": {
+        "positive": "Importing",
+        "negative": "Exporting"
+      },
       "binding": {
         "via": "modbus",
         "addr": [
@@ -775,7 +787,7 @@
     {
       "key": "ac.l1.current",
       "topic": "ac/l1/current",
-      "label": "Current L1",
+      "label": "Inverter Current L1",
       "unit": "A",
       "group": "inverter",
       "type": "S_WORD",
@@ -784,8 +796,7 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "role": "grid.phase.current",
-      "index": 1,
+      "kind": "measurement",
       "deadband": 0.2,
       "flow": {
         "positive": "Importing",
@@ -802,7 +813,7 @@
     {
       "key": "ac.l2.current",
       "topic": "ac/l2/current",
-      "label": "Current L2",
+      "label": "Inverter Current L2",
       "unit": "A",
       "group": "inverter",
       "type": "S_WORD",
@@ -811,8 +822,7 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "role": "grid.phase.current",
-      "index": 2,
+      "kind": "measurement",
       "deadband": 0.2,
       "flow": {
         "positive": "Importing",
@@ -829,7 +839,7 @@
     {
       "key": "ac.l3.current",
       "topic": "ac/l3/current",
-      "label": "Current L3",
+      "label": "Inverter Current L3",
       "unit": "A",
       "group": "inverter",
       "type": "S_WORD",
@@ -838,8 +848,7 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "role": "grid.phase.current",
-      "index": 3,
+      "kind": "measurement",
       "deadband": 0.2,
       "flow": {
         "positive": "Importing",
@@ -957,12 +966,9 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.current",
+      "index": 1,
       "deadband": 0.2,
-      "flow": {
-        "positive": "Importing",
-        "negative": "Exporting"
-      },
       "binding": {
         "via": "modbus",
         "addr": [
@@ -1009,12 +1015,9 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.current",
+      "index": 2,
       "deadband": 0.2,
-      "flow": {
-        "positive": "Importing",
-        "negative": "Exporting"
-      },
       "binding": {
         "via": "modbus",
         "addr": [
@@ -1061,12 +1064,9 @@
       ],
       "scale": 0.01,
       "access": "r",
-      "kind": "measurement",
+      "role": "grid.phase.current",
+      "index": 3,
       "deadband": 0.2,
-      "flow": {
-        "positive": "Importing",
-        "negative": "Exporting"
-      },
       "binding": {
         "via": "modbus",
         "addr": [
